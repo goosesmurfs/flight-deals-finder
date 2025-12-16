@@ -128,6 +128,51 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
   return dates;
 }
 
+// Helper function to parse time string and extract hour (0-23)
+function parseTimeToHour(timeString: string): number | null {
+  if (!timeString) return null;
+
+  // Handle various time formats: "10:30 AM", "14:45", "2:30 PM", etc.
+  const time = timeString.trim();
+
+  // Try to match HH:MM AM/PM format
+  const amPmMatch = time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  if (amPmMatch) {
+    let hour = parseInt(amPmMatch[1]);
+    const period = amPmMatch[3].toUpperCase();
+
+    if (period === 'PM' && hour !== 12) {
+      hour += 12;
+    } else if (period === 'AM' && hour === 12) {
+      hour = 0;
+    }
+
+    return hour;
+  }
+
+  // Try to match 24-hour format HH:MM
+  const twentyFourMatch = time.match(/(\d{1,2}):(\d{2})/);
+  if (twentyFourMatch) {
+    return parseInt(twentyFourMatch[1]);
+  }
+
+  return null;
+}
+
+// Helper function to check if flight time is within requested range
+function isTimeInRange(timeString: string, startHour: number, endHour: number): boolean {
+  const hour = parseTimeToHour(timeString);
+  if (hour === null) return true; // If we can't parse, don't filter it out
+
+  // Handle the case where range wraps around midnight (e.g., 22-6)
+  if (startHour <= endHour) {
+    return hour >= startHour && hour <= endHour;
+  } else {
+    // Wraps around midnight
+    return hour >= startHour || hour <= endHour;
+  }
+}
+
 // Booking link generators for different sites
 function generateSkyscannerLink(originCode: string, destinationCode: string, date: string): string {
   const baseUrl = 'https://www.skyscanner.com/transport/flights';
@@ -287,6 +332,11 @@ export async function POST(request: NextRequest) {
               const lastFlight = flight.flights[flight.flights.length - 1];
               departureTime = firstFlight.departure_time || firstFlight.departureTime || '';
               arrivalTime = lastFlight.arrival_time || lastFlight.arrivalTime || '';
+            }
+
+            // Validate departure time against requested range
+            if (!isTimeInRange(departureTime, timeStart, timeEnd)) {
+              continue;
             }
 
             const deepLink = generateGoogleFlightsOneWayLink(origin, destination, date);
