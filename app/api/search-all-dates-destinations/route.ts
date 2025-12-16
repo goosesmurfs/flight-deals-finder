@@ -38,6 +38,8 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     today = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
   }
 
+  console.log('Date generation - Base date:', today.toISOString().split('T')[0]);
+
   const minDaysAhead = 7; // Start searching 7 days ahead to avoid API rejections
   const maxDays = 37; // Search 30 days starting from minDaysAhead (7-37 days out)
 
@@ -98,6 +100,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     }
   }
 
+  console.log(`Generated ${dates.length} date combinations. First 3:`, dates.slice(0, 3));
   return dates;
 }
 
