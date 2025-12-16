@@ -335,7 +335,19 @@ export async function POST(request: NextRequest) {
             }
 
             // Validate departure time against requested range
-            if (!isTimeInRange(departureTime, timeStart, timeEnd)) {
+            const timeValid = isTimeInRange(departureTime, timeStart, timeEnd);
+
+            // Log time validation for debugging
+            console.log(`One-way flight ${origin}->${destination}:`, {
+              departureTime,
+              parsedHour: parseTimeToHour(departureTime),
+              requestedRange: `${timeStart}-${timeEnd}`,
+              isValid: timeValid,
+              price: flight.price
+            });
+
+            if (!timeValid) {
+              console.log(`⏭️  Skipping flight - time ${departureTime} not in range ${timeStart}-${timeEnd}`);
               continue;
             }
 
