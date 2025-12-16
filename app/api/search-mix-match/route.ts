@@ -162,7 +162,12 @@ function parseTimeToHour(timeString: string): number | null {
 // Helper function to check if flight time is within requested range
 function isTimeInRange(timeString: string, startHour: number, endHour: number): boolean {
   const hour = parseTimeToHour(timeString);
-  if (hour === null) return true; // If we can't parse, don't filter it out
+
+  // If we can't parse the time, reject the flight (don't show flights with missing time data)
+  if (hour === null) {
+    console.log(`⚠️  Cannot parse time: "${timeString}" - rejecting flight`);
+    return false;
+  }
 
   // Handle the case where range wraps around midnight (e.g., 22-6)
   if (startHour <= endHour) {
