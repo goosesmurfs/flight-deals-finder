@@ -53,12 +53,15 @@ export default function ExplorerPage() {
 
   const handleExplore = async () => {
     setLoading(true);
-    setSearchProgress('Searching all destinations...');
+    setSearchProgress('Searching top destinations...');
     setProgressPercentage(0);
     setDestinationDeals([]);
 
     try {
-      // Search all destinations
+      // Search top 25 most popular destinations to avoid timeouts
+      // (Searching all 52 destinations takes too long for Vercel's limits)
+      const topDestinations = DESTINATION_AIRPORTS.slice(0, 25);
+
       const response = await fetch('/api/search-all-dates-destinations', {
         method: 'POST',
         headers: {
@@ -67,7 +70,7 @@ export default function ExplorerPage() {
         body: JSON.stringify({
           searchMode: 'flexible',
           tripDuration,
-          destinationCodes: DESTINATION_AIRPORTS.map(d => d.code),
+          destinationCodes: topDestinations.map(d => d.code),
           departureTimeStart: 0,
           departureTimeEnd: 23,
           returnTimeStart: 0,
@@ -277,7 +280,7 @@ export default function ExplorerPage() {
           <div className="bg-white rounded-lg shadow-md p-8 mb-8">
             <div className="text-center mb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Searching All Destinations
+                Searching Top Destinations
               </h3>
               <p className="text-gray-600">{searchProgress}</p>
             </div>
