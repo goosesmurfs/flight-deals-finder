@@ -332,7 +332,7 @@ export async function POST(request: NextRequest) {
             );
 
             // Small delay to respect rate limits
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 50));
 
             // Search return flights (Destination -> IND)
             const returnFlights = await searchOneWayFlight(
@@ -407,7 +407,7 @@ export async function POST(request: NextRequest) {
             );
 
             // Delay between destination/date combinations
-            await new Promise(resolve => setTimeout(resolve, 200));
+            await new Promise(resolve => setTimeout(resolve, 75));
           }
         }
 

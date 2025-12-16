@@ -356,8 +356,8 @@ export async function POST(request: NextRequest) {
 
         sendProgress(0, searchTasks.length, 'Starting search...');
 
-        // Process searches in batches of 5 for better performance
-        const BATCH_SIZE = 5;
+        // Process searches in batches of 10 for faster performance
+        const BATCH_SIZE = 10;
         let completed = 0;
 
         for (let i = 0; i < searchTasks.length; i += BATCH_SIZE) {
@@ -373,12 +373,12 @@ export async function POST(request: NextRequest) {
           sendProgress(
             completed,
             searchTasks.length,
-            `Searched ${completed} of ${searchTasks.length} flight combinations...`
+            `Searched ${completed} of ${searchTasks.length} combinations...`
           );
 
-          // Small delay between batches to respect rate limits
+          // Reduced delay between batches for faster results
           if (i + BATCH_SIZE < searchTasks.length) {
-            await new Promise(resolve => setTimeout(resolve, 200));
+            await new Promise(resolve => setTimeout(resolve, 50));
           }
         }
 
