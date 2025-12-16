@@ -346,22 +346,8 @@ export async function POST(request: NextRequest) {
               arrivalTime = lastFlight.arrival_time || lastFlight.arrivalTime || '';
             }
 
-            // Validate departure time against requested range
-            const timeValid = isTimeInRange(departureTime, timeStart, timeEnd);
-
-            // Log time validation for debugging
-            console.log(`One-way flight ${origin}->${destination}:`, {
-              departureTime,
-              parsedHour: parseTimeToHour(departureTime),
-              requestedRange: `${timeStart}-${timeEnd}`,
-              isValid: timeValid,
-              price: flight.price
-            });
-
-            if (!timeValid) {
-              console.log(`⏭️  Skipping flight - time ${departureTime} not in range ${timeStart}-${timeEnd}`);
-              continue;
-            }
+            // Note: Time filtering has been disabled because the API doesn't provide reliable time data
+            // We still extract and display times for user information, but don't filter by them
 
             const deepLink = generateGoogleFlightsOneWayLink(origin, destination, date);
 

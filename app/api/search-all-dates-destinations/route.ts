@@ -388,37 +388,8 @@ export async function POST(request: NextRequest) {
                 }
               }
 
-              // Validate times against requested ranges
-              const outboundTimeValid = isTimeInRange(
-                outboundDepartureTime,
-                task.departureTimeStart ?? 0,
-                task.departureTimeEnd ?? 23
-              );
-
-              const returnTimeValid = isTimeInRange(
-                returnDepartureTime,
-                task.returnTimeStart ?? 0,
-                task.returnTimeEnd ?? 23
-              );
-
-              // Log time validation for debugging
-              console.log(`Flight to ${task.destination.code}:`, {
-                outboundTime: outboundDepartureTime,
-                outboundHour: parseTimeToHour(outboundDepartureTime),
-                outboundRange: `${task.departureTimeStart ?? 0}-${task.departureTimeEnd ?? 23}`,
-                outboundValid: outboundTimeValid,
-                returnTime: returnDepartureTime,
-                returnHour: parseTimeToHour(returnDepartureTime),
-                returnRange: `${task.returnTimeStart ?? 0}-${task.returnTimeEnd ?? 23}`,
-                returnValid: returnTimeValid,
-                price: flight.price
-              });
-
-              // Skip this flight if times don't match requested ranges
-              if (!outboundTimeValid || !returnTimeValid) {
-                console.log(`⏭️  Skipping flight - outboundValid: ${outboundTimeValid}, returnValid: ${returnTimeValid}`);
-                continue;
-              }
+              // Note: Time filtering has been disabled because the API doesn't provide reliable time data
+              // We still extract and display times for user information, but don't filter by them
 
               // Generate Google Flights booking link
               const bookingLink = generateGoogleFlightsLink('IND', task.destination.code, task.depDate, task.retDate);
