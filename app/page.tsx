@@ -261,21 +261,6 @@ export default function Home() {
           <p className="text-sm text-gray-500 mt-1">
             Choose from {DESTINATION_AIRPORTS.length} destinations and compare prices
           </p>
-
-          {/* Explorer Mode Link */}
-          <div className="mt-6">
-            <Link
-              href="/explorer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all transform hover:scale-105"
-            >
-              <span className="text-xl">🌍</span>
-              Try Explorer Mode
-              <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">NEW</span>
-            </Link>
-            <p className="text-xs text-gray-500 mt-2">
-              Not sure where to go? Set your budget and discover destinations
-            </p>
-          </div>
         </div>
 
         {/* Search Panel */}
