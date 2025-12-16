@@ -31,7 +31,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
   const dates: Array<{ departureDate: string, returnDate: string }> = [];
   const today = new Date();
   const minDaysAhead = 3; // Start searching 3 days ahead to avoid API rejections
-  const maxDays = 60; // Search within next 60 days
+  const maxDays = 30; // Search within next 30 days (reduced from 60 to avoid timeouts)
 
   // Different strategies based on trip duration
   if (tripDuration === 3) {
@@ -367,8 +367,8 @@ export async function POST(request: NextRequest) {
 
         sendProgress(0, searchTasks.length, 'Starting search...');
 
-        // Process searches in batches of 10 for faster performance
-        const BATCH_SIZE = 10;
+        // Process searches in batches of 25 for maximum speed
+        const BATCH_SIZE = 25;
         let completed = 0;
 
         for (let i = 0; i < searchTasks.length; i += BATCH_SIZE) {
@@ -387,10 +387,7 @@ export async function POST(request: NextRequest) {
             `Searched ${completed} of ${searchTasks.length} combinations...`
           );
 
-          // Reduced delay between batches for faster results
-          if (i + BATCH_SIZE < searchTasks.length) {
-            await new Promise(resolve => setTimeout(resolve, 50));
-          }
+          // No delay between batches for maximum speed
         }
 
         // Sort by price (lowest first) and return top deals

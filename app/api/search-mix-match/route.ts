@@ -68,7 +68,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
   const dates: Array<{ departureDate: string, returnDate: string }> = [];
   const today = new Date();
   const minDaysAhead = 3; // Start searching 3 days ahead to avoid API rejections
-  const maxDays = 60;
+  const maxDays = 30; // Search within next 30 days (reduced from 60 to avoid timeouts)
 
   if (tripDuration === 3) {
     // Weekend trips: Fridays only
@@ -335,9 +335,6 @@ export async function POST(request: NextRequest) {
               departureTimeEnd
             );
 
-            // Small delay to respect rate limits
-            await new Promise(resolve => setTimeout(resolve, 50));
-
             // Search return flights (Destination -> IND)
             const returnFlights = await searchOneWayFlight(
               destination.code,
@@ -409,9 +406,6 @@ export async function POST(request: NextRequest) {
               totalTasks,
               `Searched ${completed} of ${totalTasks} combinations...`
             );
-
-            // Delay between destination/date combinations
-            await new Promise(resolve => setTimeout(resolve, 75));
           }
         }
 
