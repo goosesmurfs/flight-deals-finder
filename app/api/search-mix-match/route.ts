@@ -67,11 +67,12 @@ function formatLocalDate(date: Date): string {
 function generateFlexibleDates(tripDuration: number): Array<{ departureDate: string, returnDate: string }> {
   const dates: Array<{ departureDate: string, returnDate: string }> = [];
   const today = new Date();
+  const minDaysAhead = 3; // Start searching 3 days ahead to avoid API rejections
   const maxDays = 60;
 
   if (tripDuration === 3) {
     // Weekend trips: Fridays only
-    for (let i = 0; i < maxDays; i++) {
+    for (let i = minDaysAhead; i < maxDays; i++) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
       if (departure.getDay() === 5) {
@@ -85,7 +86,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     }
   } else if (tripDuration === 7) {
     // Week trips: Fri/Sat/Sun
-    for (let i = 0; i < maxDays; i++) {
+    for (let i = minDaysAhead; i < maxDays; i++) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
       const dayOfWeek = departure.getDay();
@@ -102,7 +103,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     }
   } else {
     // Extended trips: Every 3rd day
-    for (let i = 0; i < maxDays; i += 3) {
+    for (let i = minDaysAhead; i < maxDays; i += 3) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
       const returnDate = new Date(departure);

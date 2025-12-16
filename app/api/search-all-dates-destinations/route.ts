@@ -30,12 +30,13 @@ function formatLocalDate(date: Date): string {
 function generateFlexibleDates(tripDuration: number): Array<{ departureDate: string, returnDate: string }> {
   const dates: Array<{ departureDate: string, returnDate: string }> = [];
   const today = new Date();
+  const minDaysAhead = 3; // Start searching 3 days ahead to avoid API rejections
   const maxDays = 60; // Search within next 60 days
 
   // Different strategies based on trip duration
   if (tripDuration === 3) {
     // Weekend trips: ONLY Fridays departing, returning Sunday (2 nights)
-    for (let i = 0; i < maxDays; i++) {
+    for (let i = minDaysAhead; i < maxDays; i++) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
       const dayOfWeek = departure.getDay();
@@ -53,7 +54,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     }
   } else if (tripDuration === 7) {
     // Week trips: Search all Fridays, Saturdays, and Sundays
-    for (let i = 0; i < maxDays; i++) {
+    for (let i = minDaysAhead; i < maxDays; i++) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
       const dayOfWeek = departure.getDay();
@@ -73,7 +74,7 @@ function generateFlexibleDates(tripDuration: number): Array<{ departureDate: str
     }
   } else {
     // Extended trips (10+ days): Search every 3rd day to reduce API calls
-    for (let i = 0; i < maxDays; i += 3) {
+    for (let i = minDaysAhead; i < maxDays; i += 3) {
       const departure = new Date(today);
       departure.setDate(today.getDate() + i);
 
