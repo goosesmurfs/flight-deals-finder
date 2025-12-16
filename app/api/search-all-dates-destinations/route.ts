@@ -389,8 +389,22 @@ export async function POST(request: NextRequest) {
                 task.returnTimeEnd ?? 23
               );
 
+              // Log time validation for debugging
+              console.log(`Flight to ${task.destination.code}:`, {
+                outboundTime: outboundDepartureTime,
+                outboundHour: parseTimeToHour(outboundDepartureTime),
+                outboundRange: `${task.departureTimeStart ?? 0}-${task.departureTimeEnd ?? 23}`,
+                outboundValid: outboundTimeValid,
+                returnTime: returnDepartureTime,
+                returnHour: parseTimeToHour(returnDepartureTime),
+                returnRange: `${task.returnTimeStart ?? 0}-${task.returnTimeEnd ?? 23}`,
+                returnValid: returnTimeValid,
+                price: flight.price
+              });
+
               // Skip this flight if times don't match requested ranges
               if (!outboundTimeValid || !returnTimeValid) {
+                console.log(`⏭️  Skipping flight - outboundValid: ${outboundTimeValid}, returnValid: ${returnTimeValid}`);
                 continue;
               }
 
