@@ -66,7 +66,15 @@ function formatLocalDate(date: Date): string {
 // Helper to generate dates for flexible search
 function generateFlexibleDates(tripDuration: number): Array<{ departureDate: string, returnDate: string }> {
   const dates: Array<{ departureDate: string, returnDate: string }> = [];
-  const today = new Date();
+  let today = new Date();
+
+  // WORKAROUND: If system date is in 2024 and we need 2025 dates for API compatibility
+  // (API appears to only accept dates ~1 year ahead)
+  if (today.getFullYear() === 2024) {
+    console.log('Detected 2024 system date, adjusting to 2025 for API compatibility');
+    today = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+  }
+
   const minDaysAhead = 7; // Start searching 7 days ahead to avoid API rejections
   const maxDays = 37; // Search 30 days starting from minDaysAhead (7-37 days out)
 
