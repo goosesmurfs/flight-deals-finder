@@ -163,10 +163,17 @@ function parseTimeToHour(timeString: string): number | null {
 function isTimeInRange(timeString: string, startHour: number, endHour: number): boolean {
   const hour = parseTimeToHour(timeString);
 
-  // If we can't parse the time, reject the flight (don't show flights with missing time data)
+  // If we can't parse the time, check if user is using default range (0-23)
   if (hour === null) {
-    console.log(`⚠️  Cannot parse time: "${timeString}" - rejecting flight`);
-    return false;
+    const isDefaultRange = startHour === 0 && endHour === 23;
+    if (isDefaultRange) {
+      // User hasn't set specific time filters, so allow flight without time data
+      return true;
+    } else {
+      // User has specific time preferences but flight has no time data - reject it
+      console.log(`⚠️  Cannot parse time: "${timeString}" with filter ${startHour}-${endHour} - rejecting`);
+      return false;
+    }
   }
 
   // Handle the case where range wraps around midnight (e.g., 22-6)
