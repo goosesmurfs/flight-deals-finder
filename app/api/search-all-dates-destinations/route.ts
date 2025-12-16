@@ -162,11 +162,14 @@ export async function POST(request: NextRequest) {
 
     const apiKey = process.env.RAPIDAPI_KEY;
     if (!apiKey) {
+      console.error('RAPIDAPI_KEY environment variable is not set');
       return NextResponse.json(
-        { error: 'RapidAPI key not configured. Please add RAPIDAPI_KEY to your .env.local file' },
+        { error: 'RapidAPI key not configured. Please add RAPIDAPI_KEY to your environment variables and redeploy.' },
         { status: 500 }
       );
     }
+
+    console.log('API Key configured:', apiKey ? `${apiKey.slice(0, 8)}...` : 'MISSING');
 
     const allDeals: AllDealsFlightDeal[] = [];
 
@@ -244,6 +247,13 @@ export async function POST(request: NextRequest) {
         };
 
         const response = await fetch(`${url}?${params.toString()}`, options);
+
+        if (!response.ok) {
+          console.error(`API request failed for ${task.destination.code}: ${response.status} ${response.statusText}`);
+          const errorText = await response.text();
+          console.error('Error response:', errorText);
+          return null;
+        }
 
         if (response.ok) {
           const data = await response.json();
