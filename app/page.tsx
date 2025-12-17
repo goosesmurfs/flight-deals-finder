@@ -248,28 +248,31 @@ export default function Home() {
   const maxDealPrice = dealPrices.length > 0 ? Math.max(...dealPrices) : 2000;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Best Flight Deals from {ORIGIN_AIRPORT.city}
+        <div className="text-center mb-10">
+          <div className="inline-block mb-3">
+            <span className="text-5xl">✈️</span>
+          </div>
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
+            Flight Deals from {ORIGIN_AIRPORT.city}
           </h1>
-          <p className="text-gray-600">
-            Pick your dates and up to 5 destinations to find the cheapest roundtrip flights
+          <p className="text-lg text-gray-700 font-medium">
+            Find the cheapest roundtrip flights to your dream destinations
           </p>
-          <p className="text-sm text-gray-500 mt-1">
-            Choose from {DESTINATION_AIRPORTS.length} destinations and compare prices
+          <p className="text-sm text-gray-600 mt-2">
+            Search {DESTINATION_AIRPORTS.length} destinations • Real-time pricing • Instant results
           </p>
         </div>
 
         {/* Search Panel */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 mb-8">
           {/* Trip Style Selection */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Trip Style
-              <span className="text-xs text-gray-500 ml-2">(We'll find the best dates for you)</span>
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-800 mb-3">
+              🗓️ Select Trip Style
+              <span className="text-xs text-gray-500 ml-2 font-normal">(We'll find the best dates for you)</span>
             </label>
             <div className="flex flex-wrap gap-2">
               <button
@@ -487,9 +490,19 @@ export default function Home() {
           <button
             onClick={handleSearch}
             disabled={loading || selectedDestinations.length === 0}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-md transition-colors"
+            className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 disabled:from-gray-300 disabled:via-gray-300 disabled:to-gray-400 text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-none text-lg"
           >
-            {loading ? `Searching ${selectedDestinations.length} destination${selectedDestinations.length > 1 ? 's' : ''}...` : 'Find Best Deals'}
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="animate-spin">⏳</span>
+                Searching {selectedDestinations.length} destination{selectedDestinations.length > 1 ? 's' : ''}...
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                <span>🔍</span>
+                Find Best Deals
+              </span>
+            )}
           </button>
 
           {error && (
@@ -932,26 +945,39 @@ export default function Home() {
                 return (
                   <div
                     key={`${deal.destinationCode}-${deal.departureDate}-${index}`}
-                    className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6"
+                    className="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-6 border border-gray-100 relative overflow-hidden"
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">
-                          {destinationInfo?.city || deal.destinationCity}
-                        </h3>
-                        <p className="text-sm text-gray-500">{deal.destinationCode}</p>
+                    {/* Decorative gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex-1">
+                          <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                            {destinationInfo?.city || deal.destinationCity}
+                          </h3>
+                          <p className="text-sm font-medium text-gray-500 bg-gray-100 rounded-full px-3 py-1 inline-block">
+                            {deal.destinationCode}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex flex-col items-end gap-1">
+                            <p className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                              ${deal.price}
+                            </p>
+                            {deal.direct && (
+                              <span className="inline-flex items-center gap-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                                <span>✓</span> Nonstop
+                              </span>
+                            )}
+                            {!deal.direct && deal.stops !== undefined && (
+                              <span className="inline-block bg-amber-100 text-amber-800 text-xs font-medium px-3 py-1 rounded-full">
+                                {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-blue-600">
-                          ${deal.price}
-                        </p>
-                        {deal.direct && (
-                          <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mt-1">
-                            Nonstop
-                          </span>
-                        )}
-                      </div>
-                    </div>
 
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
@@ -1005,16 +1031,17 @@ export default function Home() {
                       )}
                     </div>
 
-                    {deal.deepLink && (
-                      <a
-                        href={deal.deepLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
-                      >
-                        View on Google Flights →
-                      </a>
-                    )}
+                      {deal.deepLink && (
+                        <a
+                          href={deal.deepLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 block w-full text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                        >
+                          View on Google Flights →
+                        </a>
+                      )}
+                    </div>
                   </div>
                 );
               })}
