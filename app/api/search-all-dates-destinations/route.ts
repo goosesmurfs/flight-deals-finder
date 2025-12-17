@@ -199,6 +199,11 @@ async function logFlightPrice(deal: {
   returnDepartureTime?: string;
   searchType: string;
 }) {
+  // Skip logging if database is not available (e.g., on Vercel without DATABASE_URL)
+  if (!prisma) {
+    return;
+  }
+
   try {
     await prisma.flightPrice.create({
       data: {
