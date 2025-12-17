@@ -20,6 +20,16 @@ export async function calculateDealScore(
   currentPrice: number
 ): Promise<DealScore> {
   try {
+    // If database is not available, return neutral score
+    if (!prisma) {
+      return {
+        score: 50,
+        badge: null,
+        badgeText: '',
+        badgeColor: ''
+      };
+    }
+
     // Query historical prices for this route
     // Look at prices from the last 30 days
     const thirtyDaysAgo = new Date();
