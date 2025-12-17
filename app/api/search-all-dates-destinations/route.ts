@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DESTINATION_AIRPORTS } from '@/lib/airports';
+import { prisma } from '@/lib/prisma';
 
 export interface AllDealsFlightDeal {
   destinationCity: string;
@@ -182,6 +183,42 @@ function generateGoogleFlightsLink(
   // Example: https://www.google.com/travel/flights?q=flights from IND to MCO on 2025-01-15 to 2025-01-18
   const query = `flights from ${originCode} to ${destinationCode} on ${departureDate} to ${returnDate}`;
   return `${baseUrl}?q=${encodeURIComponent(query)}`;
+}
+
+// Helper function to log flight price to database (async, non-blocking)
+async function logFlightPrice(deal: {
+  originCode?: string;
+  destinationCode: string;
+  departureDate: string;
+  returnDate: string;
+  price: number;
+  deepLink?: string;
+  carriers?: string[];
+  stops?: number;
+  outboundDepartureTime?: string;
+  returnDepartureTime?: string;
+  searchType: string;
+}) {
+  try {
+    await prisma.flightPrice.create({
+      data: {
+        originCode: deal.originCode || 'IND',
+        destinationCode: deal.destinationCode,
+        departureDate: deal.departureDate,
+        returnDate: deal.returnDate,
+        price: deal.price,
+        deepLink: deal.deepLink,
+        airline: deal.carriers && deal.carriers.length > 0 ? deal.carriers.join(', ') : null,
+        stops: deal.stops ?? null,
+        departureTime: deal.outboundDepartureTime || null,
+        returnTime: deal.returnDepartureTime || null,
+        searchType: deal.searchType
+      }
+    });
+  } catch (error) {
+    // Silently fail - we don't want logging errors to break the search
+    console.error('Failed to log price to database:', error);
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -394,8 +431,7 @@ export async function POST(request: NextRequest) {
               // Generate Google Flights booking link
               const bookingLink = generateGoogleFlightsLink('IND', task.destination.code, task.depDate, task.retDate);
 
-              // Only take the first (cheapest) matching flight
-              return {
+              const deal = {
                 destinationCity: task.destination.city,
                 destinationCode: task.destination.code,
                 price: flight.price || 0,
@@ -411,6 +447,23 @@ export async function POST(request: NextRequest) {
                 returnDepartureTime,
                 returnArrivalTime
               };
+
+              // Log price to database asynchronously (don't await to avoid blocking)
+              logFlightPrice({
+                destinationCode: task.destination.code,
+                departureDate: task.depDate,
+                returnDate: task.retDate,
+                price: flight.price || 0,
+                deepLink: bookingLink,
+                carriers: [...new Set(carriers)],
+                stops: flight.stops || 0,
+                outboundDepartureTime,
+                returnDepartureTime,
+                searchType: 'regular'
+              }).catch(err => console.error('Price logging failed:', err));
+
+              // Only take the first (cheapest) matching flight
+              return deal;
             }
           }
         }

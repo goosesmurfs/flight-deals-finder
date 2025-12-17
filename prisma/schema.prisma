@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model FlightPrice {
+  id                String   @id @default(uuid())
+
+  // Route information
+  originCode        String
+  destinationCode   String
+
+  // Date information
+  departureDate     String   // Format: YYYY-MM-DD
+  returnDate        String?  // Format: YYYY-MM-DD (null for one-way)
+
+  // Price and booking info
+  price             Int      // Price in dollars
+  deepLink          String?
+
+  // Flight details
+  airline           String?
+  stops             Int?     // 0 for nonstop, 1+ for connections
+  departureTime     String?
+  returnTime        String?
+
+  // Metadata
+  searchType        String   // "regular", "mix-match", "flexible"
+  recordedAt        DateTime @default(now())
+
+  // Indexes for efficient querying
+  @@index([originCode, destinationCode, departureDate])
+  @@index([recordedAt])
+  @@index([price])
+}

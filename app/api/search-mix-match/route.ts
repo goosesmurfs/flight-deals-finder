@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DESTINATION_AIRPORTS } from '@/lib/airports';
+import { prisma } from '@/lib/prisma';
 
 export interface BookingLinks {
   skyscanner: string;
@@ -217,6 +218,42 @@ function generateExpediaLink(originCode: string, destinationCode: string, date: 
     'options': 'cabinclass:economy'
   });
   return `${baseUrl}?${params.toString()}`;
+}
+
+// Helper function to log flight price to database (async, non-blocking)
+async function logFlightPrice(params: {
+  originCode: string;
+  destinationCode: string;
+  departureDate: string;
+  returnDate: string | null;
+  price: number;
+  deepLink?: string;
+  carrier?: string;
+  stops?: number;
+  departureTime?: string;
+  returnTime?: string;
+  searchType: string;
+}) {
+  try {
+    await prisma.flightPrice.create({
+      data: {
+        originCode: params.originCode,
+        destinationCode: params.destinationCode,
+        departureDate: params.departureDate,
+        returnDate: params.returnDate,
+        price: params.price,
+        deepLink: params.deepLink,
+        airline: params.carrier || null,
+        stops: params.stops ?? null,
+        departureTime: params.departureTime || null,
+        returnTime: params.returnTime || null,
+        searchType: params.searchType
+      }
+    });
+  } catch (error) {
+    // Silently fail - we don't want logging errors to break the search
+    console.error('Failed to log price to database:', error);
+  }
 }
 
 // Keep old function name for compatibility but return all links
@@ -465,6 +502,37 @@ export async function POST(request: NextRequest) {
                   deepLinkOutbound: bookingLinksOutbound.skyscanner,
                   deepLinkReturn: bookingLinksReturn.skyscanner
                 });
+
+                // Log both flights to database asynchronously (don't await to avoid blocking)
+                // Outbound flight (one-way)
+                logFlightPrice({
+                  originCode: 'IND',
+                  destinationCode: destination.code,
+                  departureDate: depDate,
+                  returnDate: null, // One-way flight
+                  price: outbound.price,
+                  deepLink: bookingLinksOutbound.skyscanner,
+                  carrier: outbound.carrier,
+                  stops: outbound.stops,
+                  departureTime: outbound.departureTime,
+                  returnTime: undefined,
+                  searchType: 'mix-match'
+                }).catch(err => console.error('Price logging failed (outbound):', err));
+
+                // Return flight (one-way)
+                logFlightPrice({
+                  originCode: destination.code,
+                  destinationCode: 'IND',
+                  departureDate: retDate,
+                  returnDate: null, // One-way flight
+                  price: returnFlight.price,
+                  deepLink: bookingLinksReturn.skyscanner,
+                  carrier: returnFlight.carrier,
+                  stops: returnFlight.stops,
+                  departureTime: returnFlight.departureTime,
+                  returnTime: undefined,
+                  searchType: 'mix-match'
+                }).catch(err => console.error('Price logging failed (return):', err));
               }
             }
 
