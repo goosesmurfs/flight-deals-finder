@@ -267,7 +267,7 @@ export default function Home() {
                 <h1 className="text-2xl font-bold text-white">
                   Flight Deals Finder
                 </h1>
-                <p className="text-sm text-slate-300">From {ORIGIN_AIRPORT.city}</p>
+                <p className="text-sm text-slate-100">From {ORIGIN_AIRPORT.city}</p>
               </div>
             </div>
           </div>
@@ -279,7 +279,7 @@ export default function Home() {
         <div className="bg-slate-800 rounded-lg shadow-xl border border-slate-700 p-6 mb-6">
           {/* Trip Style Selection */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-slate-200 mb-3">
+            <label className="block text-sm font-medium text-slate-100 mb-3">
               Trip Duration
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -293,7 +293,7 @@ export default function Home() {
                 }`}
               >
                 <div className="text-sm font-semibold text-white">Weekend</div>
-                <div className="text-xs text-slate-400 mt-1">3 days</div>
+                <div className="text-xs text-slate-200 mt-1">3 days</div>
               </button>
               <button
                 type="button"
@@ -305,7 +305,7 @@ export default function Home() {
                 }`}
               >
                 <div className="text-sm font-semibold text-white">Week</div>
-                <div className="text-xs text-slate-400 mt-1">7 days</div>
+                <div className="text-xs text-slate-200 mt-1">7 days</div>
               </button>
               <button
                 type="button"
@@ -317,7 +317,7 @@ export default function Home() {
                 }`}
               >
                 <div className="text-sm font-semibold text-white">Extended</div>
-                <div className="text-xs text-slate-400 mt-1">10 days</div>
+                <div className="text-xs text-slate-200 mt-1">10 days</div>
               </button>
               <button
                 type="button"
@@ -329,14 +329,14 @@ export default function Home() {
                 }`}
               >
                 <div className="text-sm font-semibold text-white">2 Weeks</div>
-                <div className="text-xs text-slate-400 mt-1">14 days</div>
+                <div className="text-xs text-slate-200 mt-1">14 days</div>
               </button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-slate-100 mb-2">
                 Departure Date
               </label>
               <input
@@ -347,13 +347,13 @@ export default function Home() {
                 max={new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                 className="w-full px-4 py-3 border border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
               />
-              <div className="text-xs text-slate-400 mt-1">
+              <div className="text-xs text-slate-200 mt-1">
                 Any date in the next 90 days
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-slate-100 mb-2">
                 Return Date
               </label>
               <input
@@ -363,14 +363,14 @@ export default function Home() {
                 min={departureDate || new Date().toISOString().split('T')[0]}
                 className="w-full px-4 py-3 border border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
               />
-              <div className="text-xs text-slate-400 mt-1">
+              <div className="text-xs text-slate-200 mt-1">
                 When do you want to return?
               </div>
             </div>
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-slate-200 mb-2">
+            <label className="block text-sm font-medium text-slate-100 mb-2">
               Select Destinations (1-5)
             </label>
 
@@ -379,14 +379,14 @@ export default function Home() {
               <button
                 type="button"
                 onClick={selectPopular}
-                className="px-3 py-1.5 text-sm bg-indigo-50 hover:bg-indigo-100 text-indigo-800 rounded-md transition-colors border border-indigo-200"
+                className="px-3 py-1.5 text-sm bg-indigo-50 hover:bg-indigo-100 text-indigo-400 rounded-md transition-colors border border-indigo-200"
               >
                 Popular 5
               </button>
               <button
                 type="button"
                 onClick={selectBeach}
-                className="px-3 py-1.5 text-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-md transition-colors border border-emerald-200"
+                className="px-3 py-1.5 text-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-400 rounded-md transition-colors border border-emerald-200"
               >
                 Beach Cities
               </button>
@@ -400,7 +400,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={clearDestinations}
-                className="px-3 py-1.5 text-sm bg-slate-200 hover:bg-gray-300 text-slate-200 rounded-md transition-colors"
+                className="px-3 py-1.5 text-sm bg-slate-200 hover:bg-gray-300 text-slate-100 rounded-md transition-colors"
               >
                 Clear All
               </button>
@@ -425,16 +425,16 @@ export default function Home() {
                     checked={selectedDestinations.includes(airport.code)}
                     onChange={() => toggleDestination(airport.code)}
                     disabled={selectedDestinations.length >= 5 && !selectedDestinations.includes(airport.code)}
-                    className="w-4 h-4 text-indigo-700 border-slate-600 rounded focus:ring-indigo-500"
+                    className="w-4 h-4 text-indigo-400 border-slate-600 rounded focus:ring-indigo-500"
                   />
                   <span className="text-sm">
                     <span className="font-medium">{airport.city}</span>
-                    <span className="text-slate-400 text-xs ml-1">({airport.code})</span>
+                    <span className="text-slate-200 text-xs ml-1">({airport.code})</span>
                   </span>
                 </label>
               ))}
             </div>
-            <div className="text-xs text-slate-400 mt-2">
+            <div className="text-xs text-slate-200 mt-2">
               {selectedDestinations.length === 0 && 'Select at least 1 destination'}
               {selectedDestinations.length > 0 && selectedDestinations.length < 5 && `${selectedDestinations.length} selected - you can select ${5 - selectedDestinations.length} more`}
               {selectedDestinations.length === 5 && 'Maximum 5 destinations selected'}
@@ -442,7 +442,7 @@ export default function Home() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-200 mb-2">
+            <label className="block text-sm font-medium text-slate-100 mb-2">
               Flight Preferences
             </label>
             <div className="space-y-2">
@@ -452,11 +452,11 @@ export default function Home() {
                   name="flightType"
                   checked={nonstopOnly === true}
                   onChange={() => setNonstopOnly(true)}
-                  className="w-4 h-4 text-indigo-700 border-slate-600 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-400 border-slate-600 focus:ring-indigo-500"
                 />
                 <div>
                   <span className="text-sm font-medium text-white">Nonstop only</span>
-                  <span className="text-xs text-slate-400 block">Direct flights, faster search</span>
+                  <span className="text-xs text-slate-200 block">Direct flights, faster search</span>
                 </div>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
@@ -465,11 +465,11 @@ export default function Home() {
                   name="flightType"
                   checked={nonstopOnly === false}
                   onChange={() => setNonstopOnly(false)}
-                  className="w-4 h-4 text-indigo-700 border-slate-600 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-400 border-slate-600 focus:ring-indigo-500"
                 />
                 <div>
                   <span className="text-sm font-medium text-white">Include connecting flights</span>
-                  <span className="text-xs text-slate-400 block">More options, may involve multiple airlines</span>
+                  <span className="text-xs text-slate-200 block">More options, may involve multiple airlines</span>
                 </div>
               </label>
             </div>
@@ -488,7 +488,7 @@ export default function Home() {
                   <span className="text-sm font-bold text-white">🔀 Mix & Match Airlines</span>
                   <span className="inline-block bg-emerald-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-sm">CHEAPEST</span>
                 </div>
-                <span className="text-xs text-slate-300 block mt-1">
+                <span className="text-xs text-slate-100 block mt-1">
                   Search one-way flights separately and combine different airlines for outbound/return to find absolute lowest prices
                 </span>
               </div>
@@ -520,7 +520,7 @@ export default function Home() {
           )}
 
           {searchProgress && !loading && (
-            <div className="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-md text-indigo-700">
+            <div className="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-md text-indigo-400">
               {searchProgress}
             </div>
           )}
@@ -533,7 +533,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold text-white mb-2">
                 Searching for Flights
               </h3>
-              <p className="text-slate-300">{searchProgress}</p>
+              <p className="text-slate-100">{searchProgress}</p>
             </div>
 
             {/* Progress Bar */}
@@ -546,7 +546,7 @@ export default function Home() {
               </div>
             </div>
 
-            <p className="text-sm text-slate-400 mt-4 text-center">
+            <p className="text-sm text-slate-200 mt-4 text-center">
               {progressPercentage < 100 ? 'Please wait...' : 'Finalizing results...'}
             </p>
           </div>
@@ -559,7 +559,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-white">
                 {mixMatchDeals.length} Mix & Match Deals Found
               </h2>
-              <p className="text-slate-300 mt-1">
+              <p className="text-slate-100 mt-1">
                 {mixMatchDeals.filter(d => d.isMixedAirlines).length} with different airlines for outbound/return
               </p>
             </div>
@@ -572,7 +572,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'list'
                       ? 'bg-indigo-700 text-white'
-                      : 'text-slate-200 hover:bg-slate-700'
+                      : 'text-slate-100 hover:bg-slate-700'
                   }`}
                 >
                   📋 List View
@@ -582,7 +582,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'calendar'
                       ? 'bg-indigo-700 text-white'
-                      : 'text-slate-200 hover:bg-slate-700'
+                      : 'text-slate-100 hover:bg-slate-700'
                   }`}
                 >
                   📅 Calendar View
@@ -614,11 +614,11 @@ export default function Home() {
                         <h3 className="text-xl font-bold text-white mb-1">
                           {destinationInfo?.city || deal.destinationCity}
                         </h3>
-                        <p className="text-xs text-slate-400">{deal.destinationCode}</p>
+                        <p className="text-xs text-slate-200">{deal.destinationCode}</p>
                       </div>
                       <div className="text-right">
                         <div className="flex flex-col items-end gap-1.5">
-                          <p className="text-2xl font-bold text-indigo-700">
+                          <p className="text-2xl font-bold text-indigo-400">
                             ${deal.totalPrice}
                           </p>
                           {deal.isMixedAirlines && (
@@ -632,12 +632,12 @@ export default function Home() {
 
                     {/* Outbound Flight */}
                     <div className="mb-3 pb-3 border-b border-slate-700">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">OUTBOUND</div>
+                      <div className="text-xs font-semibold text-slate-200 mb-1">OUTBOUND</div>
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-sm font-medium text-white">{deal.outboundCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-700">${deal.outboundPrice}</span>
+                        <span className="text-sm font-bold text-indigo-400">${deal.outboundPrice}</span>
                       </div>
-                      <div className="text-xs text-slate-300">
+                      <div className="text-xs text-slate-100">
                         {new Date(deal.departureDate).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -645,13 +645,13 @@ export default function Home() {
                         })}
                       </div>
                       {deal.outboundDepartureTime && (
-                        <div className="text-xs font-mono text-slate-400 mt-1">
+                        <div className="text-xs font-mono text-slate-200 mt-1">
                           {deal.outboundDepartureTime}
                           {deal.outboundArrivalTime && ` → ${deal.outboundArrivalTime}`}
                         </div>
                       )}
                       {deal.outboundDirect && (
-                        <span className="inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
+                        <span className="inline-block bg-cyan-100 text-cyan-400 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
                           Nonstop
                         </span>
                       )}
@@ -659,12 +659,12 @@ export default function Home() {
 
                     {/* Return Flight */}
                     <div className="mb-3">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">RETURN</div>
+                      <div className="text-xs font-semibold text-slate-200 mb-1">RETURN</div>
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-sm font-medium text-white">{deal.returnCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-700">${deal.returnPrice}</span>
+                        <span className="text-sm font-bold text-indigo-400">${deal.returnPrice}</span>
                       </div>
-                      <div className="text-xs text-slate-300">
+                      <div className="text-xs text-slate-100">
                         {new Date(deal.returnDate).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -672,19 +672,19 @@ export default function Home() {
                         })}
                       </div>
                       {deal.returnDepartureTime && (
-                        <div className="text-xs font-mono text-slate-400 mt-1">
+                        <div className="text-xs font-mono text-slate-200 mt-1">
                           {deal.returnDepartureTime}
                           {deal.returnArrivalTime && ` → ${deal.returnArrivalTime}`}
                         </div>
                       )}
                       {deal.returnDirect && (
-                        <span className="inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
+                        <span className="inline-block bg-cyan-100 text-cyan-400 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
                           Nonstop
                         </span>
                       )}
                     </div>
 
-                    <div className="text-xs text-slate-400 pt-3 border-t border-slate-700">
+                    <div className="text-xs text-slate-200 pt-3 border-t border-slate-700">
                       Trip Length: {tripLength} days
                     </div>
 
@@ -692,7 +692,7 @@ export default function Home() {
                     <div className="mt-4 space-y-3">
                       {/* Outbound Flight Booking Options */}
                       <div>
-                        <div className="text-xs font-semibold text-slate-300 mb-2">BOOK OUTBOUND:</div>
+                        <div className="text-xs font-semibold text-slate-100 mb-2">BOOK OUTBOUND:</div>
                         <div className="grid grid-cols-2 gap-1.5">
                           {deal.bookingLinksOutbound?.skyscanner && (
                             <a
@@ -739,7 +739,7 @@ export default function Home() {
 
                       {/* Return Flight Booking Options */}
                       <div>
-                        <div className="text-xs font-semibold text-slate-300 mb-2">BOOK RETURN:</div>
+                        <div className="text-xs font-semibold text-slate-100 mb-2">BOOK RETURN:</div>
                         <div className="grid grid-cols-2 gap-1.5">
                           {deal.bookingLinksReturn?.skyscanner && (
                             <a
@@ -799,7 +799,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-white">
                 {deals.length} Deals Found
               </h2>
-              <p className="text-slate-300 mt-1">Showing {filteredDeals.length} after filters</p>
+              <p className="text-slate-100 mt-1">Showing {filteredDeals.length} after filters</p>
             </div>
 
             {/* View Mode Toggle */}
@@ -810,7 +810,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'list'
                       ? 'bg-indigo-700 text-white'
-                      : 'text-slate-200 hover:bg-slate-700'
+                      : 'text-slate-100 hover:bg-slate-700'
                   }`}
                 >
                   📋 List View
@@ -820,7 +820,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'calendar'
                       ? 'bg-indigo-700 text-white'
-                      : 'text-slate-200 hover:bg-slate-700'
+                      : 'text-slate-100 hover:bg-slate-700'
                   }`}
                 >
                   📅 Calendar View
@@ -835,7 +835,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 {/* Sort By */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">
+                  <label className="block text-sm font-medium text-slate-100 mb-2">
                     Sort By
                   </label>
                   <select
@@ -853,7 +853,7 @@ export default function Home() {
 
                 {/* Price Range */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">
+                  <label className="block text-sm font-medium text-slate-100 mb-2">
                     Price Range: ${priceMin} - ${priceMax}
                   </label>
                   <div className="flex gap-2 items-center">
@@ -866,7 +866,7 @@ export default function Home() {
                       className="w-20 px-2 py-2 border border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="Min"
                     />
-                    <span className="text-slate-400 text-sm">to</span>
+                    <span className="text-slate-200 text-sm">to</span>
                     <input
                       type="number"
                       value={priceMax}
@@ -888,7 +888,7 @@ export default function Home() {
 
                 {/* Date Range */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">
+                  <label className="block text-sm font-medium text-slate-100 mb-2">
                     Departure Date Range
                   </label>
                   <div className="space-y-1">
@@ -912,7 +912,7 @@ export default function Home() {
 
                 {/* Destination Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">
+                  <label className="block text-sm font-medium text-slate-100 mb-2">
                     Destinations
                   </label>
                   <div className="max-h-24 overflow-y-auto border border-slate-600 rounded-lg p-2 space-y-1 bg-slate-700">
@@ -930,7 +930,7 @@ export default function Home() {
                                 setFilterDestinations(filterDestinations.filter(c => c !== code));
                               }
                             }}
-                            className="w-4 h-4 text-indigo-700"
+                            className="w-4 h-4 text-indigo-400"
                           />
                           <span>{airport?.city || code} ({code})</span>
                         </label>
@@ -941,7 +941,7 @@ export default function Home() {
 
                 {/* Airlines Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">
+                  <label className="block text-sm font-medium text-slate-100 mb-2">
                     Airlines
                   </label>
                   <div className="max-h-24 overflow-y-auto border border-slate-600 rounded-lg p-2 space-y-1 bg-slate-700">
@@ -958,13 +958,13 @@ export default function Home() {
                                 setFilterAirlines(filterAirlines.filter(a => a !== airline));
                               }
                             }}
-                            className="w-4 h-4 text-indigo-700"
+                            className="w-4 h-4 text-indigo-400"
                           />
                           <span>{airline}</span>
                         </label>
                       ))
                     ) : (
-                      <p className="text-xs text-slate-400">No airlines available</p>
+                      <p className="text-xs text-slate-200">No airlines available</p>
                     )}
                   </div>
                   {/* Quick select for budget carriers */}
@@ -976,7 +976,7 @@ export default function Home() {
                         );
                         setFilterAirlines(budgetCarriers);
                       }}
-                      className="mt-2 w-full px-2 py-1 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-lg transition-colors border border-emerald-200"
+                      className="mt-2 w-full px-2 py-1 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-400 rounded-lg transition-colors border border-emerald-200"
                     >
                       Spirit/Frontier Only
                     </button>
@@ -996,7 +996,7 @@ export default function Home() {
                     setFilterDateEnd('');
                     setFilterAirlines([]);
                   }}
-                  className="px-4 py-2 text-sm bg-slate-700 hover:bg-slate-200 text-slate-200 rounded-lg transition-colors border border-slate-600"
+                  className="px-4 py-2 text-sm bg-slate-700 hover:bg-slate-200 text-slate-100 rounded-lg transition-colors border border-slate-600"
                 >
                   Reset Filters
                 </button>
@@ -1025,22 +1025,22 @@ export default function Home() {
                         <h3 className="text-xl font-bold text-white mb-1">
                           {destinationInfo?.city || deal.destinationCity}
                         </h3>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs text-slate-200">
                           {deal.destinationCode}
                         </p>
                       </div>
                       <div className="text-right">
                         <div className="flex flex-col items-end gap-1.5">
-                          <p className="text-2xl font-bold text-indigo-700">
+                          <p className="text-2xl font-bold text-indigo-400">
                             ${deal.price}
                           </p>
                           {deal.direct && (
-                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 text-xs font-medium px-2.5 py-1 rounded border border-emerald-200">
+                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-400 text-xs font-medium px-2.5 py-1 rounded border border-emerald-200">
                               Nonstop
                             </span>
                           )}
                           {!deal.direct && deal.stops !== undefined && (
-                            <span className="inline-block bg-slate-700 text-slate-300 text-xs font-medium px-2.5 py-1 rounded">
+                            <span className="inline-block bg-slate-700 text-slate-100 text-xs font-medium px-2.5 py-1 rounded">
                               {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
                             </span>
                           )}
@@ -1048,7 +1048,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="space-y-2 text-sm text-slate-300">
+                    <div className="space-y-2 text-sm text-slate-100">
                       <div className="flex justify-between">
                         <span>Departure:</span>
                         <span className="font-medium">
@@ -1061,7 +1061,7 @@ export default function Home() {
                       </div>
                       {deal.outboundDepartureTime && (
                         <div className="flex justify-between text-xs">
-                          <span className="text-slate-400">Outbound:</span>
+                          <span className="text-slate-200">Outbound:</span>
                           <span className="font-mono">
                             {deal.outboundDepartureTime}
                             {deal.outboundArrivalTime && ` → ${deal.outboundArrivalTime}`}
@@ -1080,7 +1080,7 @@ export default function Home() {
                       </div>
                       {deal.returnDepartureTime && (
                         <div className="flex justify-between text-xs">
-                          <span className="text-slate-400">Return Flight:</span>
+                          <span className="text-slate-200">Return Flight:</span>
                           <span className="font-mono">
                             {deal.returnDepartureTime}
                             {deal.returnArrivalTime && ` → ${deal.returnArrivalTime}`}
@@ -1093,7 +1093,7 @@ export default function Home() {
                       </div>
                       {deal.carriers && deal.carriers.length > 0 && (
                         <div className="pt-2 border-t">
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-slate-200">
                             {deal.carriers.join(', ')}
                           </span>
                         </div>
@@ -1120,11 +1120,11 @@ export default function Home() {
 
         {!loading && deals.length === 0 && searchProgress && (
           <div className="text-center py-12 bg-slate-800 rounded-lg shadow-sm border border-slate-700">
-            <div className="text-slate-400 text-5xl mb-4">✈️</div>
+            <div className="text-slate-200 text-5xl mb-4">✈️</div>
             <p className="text-white text-lg font-semibold mb-2">
               No deals found
             </p>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-200 text-sm">
               Try different dates or adjust your filters
             </p>
           </div>
@@ -1136,9 +1136,9 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white mb-6">
               How It Works
             </h2>
-            <div className="space-y-4 text-slate-300">
+            <div className="space-y-4 text-slate-100">
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-400 rounded-full flex items-center justify-center font-bold">
                   1
                 </div>
                 <div>
@@ -1147,7 +1147,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-400 rounded-full flex items-center justify-center font-bold">
                   2
                 </div>
                 <div>
@@ -1156,7 +1156,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-400 rounded-full flex items-center justify-center font-bold">
                   3
                 </div>
                 <div>
@@ -1177,13 +1177,13 @@ export default function Home() {
                     <div className="font-semibold text-white">
                       {airport.city}
                     </div>
-                    <div className="text-sm text-slate-400">
+                    <div className="text-sm text-slate-200">
                       {airport.code}
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-slate-400 mt-4 text-center">
+              <p className="text-sm text-slate-200 mt-4 text-center">
                 + {DESTINATION_AIRPORTS.length - 16} more destinations
               </p>
             </div>
