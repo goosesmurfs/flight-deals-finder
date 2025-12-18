@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { DESTINATION_AIRPORTS, ORIGIN_AIRPORT } from '@/lib/airports';
 import { AllDealsFlightDeal } from './api/search-all-dates-destinations/route';
 import { MixMatchFlightDeal } from './api/search-mix-match/route';
+import CalendarView from './components/CalendarView';
 
 export default function Home() {
   const [searchMode, setSearchMode] = useState<'specific' | 'flexible'>('specific');
@@ -25,6 +26,9 @@ export default function Home() {
   const [searchProgress, setSearchProgress] = useState('');
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [destinationsSearched, setDestinationsSearched] = useState(0);
+
+  // View mode state
+  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
 
   // Filter states
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'date-asc' | 'date-desc' | 'destination'>('price-asc');
@@ -760,6 +764,32 @@ export default function Home() {
               <p className="text-gray-600 mt-1">Showing {filteredDeals.length} after filters</p>
             </div>
 
+            {/* View Mode Toggle */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'list'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  📋 List View
+                </button>
+                <button
+                  onClick={() => setViewMode('calendar')}
+                  className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'calendar'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  📅 Calendar View
+                </button>
+              </div>
+            </div>
+
             {/* Filter Panel */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Filter & Sort Results</h3>
@@ -935,8 +965,13 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredDeals.map((deal, index) => {
+            {/* Calendar View */}
+            {viewMode === 'calendar' && <CalendarView deals={filteredDeals} />}
+
+            {/* List View */}
+            {viewMode === 'list' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredDeals.map((deal, index) => {
                 const destinationInfo = DESTINATION_AIRPORTS.find(a => a.code === deal.destinationCode);
                 const tripLength = Math.ceil(
                   (new Date(deal.returnDate).getTime() - new Date(deal.departureDate).getTime()) / (1000 * 60 * 60 * 24)
@@ -1045,7 +1080,8 @@ export default function Home() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            )}
           </div>
         )}
 
