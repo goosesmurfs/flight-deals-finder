@@ -100,7 +100,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
           onClick={() => setShowModal(false)}
         >
           <div
-            className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
@@ -131,7 +131,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                 );
 
                 return (
-                  <div key={index} className={`bg-gradient-to-br from-white to-gray-50 rounded-lg border p-6 hover:shadow-lg transition-shadow ${
+                  <div key={index} className={`bg-white rounded-lg border p-5 hover:shadow-md transition-shadow duration-200 ${
                     deal.isMixedAirlines ? 'border-green-300 ring-2 ring-green-200' : 'border-gray-200'
                   }`}>
                     <div className="flex justify-between items-start mb-4">
@@ -200,7 +200,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
         const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
         return (
-          <div key={`${year}-${month}`} className="bg-white rounded-xl shadow-lg p-6">
+          <div key={`${year}-${month}`} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">{monthName}</h3>
 
             {/* Calendar Grid */}

@@ -605,26 +605,28 @@ export default function Home() {
                 return (
                   <div
                     key={`${deal.destinationCode}-${deal.departureDate}-${index}`}
-                    className={`bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 ${
-                      deal.isMixedAirlines ? 'ring-2 ring-green-400' : ''
+                    className={`bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-5 border ${
+                      deal.isMixedAirlines ? 'border-green-300 ring-2 ring-green-200' : 'border-gray-200'
                     }`}
                   >
                     <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">
                           {destinationInfo?.city || deal.destinationCity}
                         </h3>
-                        <p className="text-sm text-gray-500">{deal.destinationCode}</p>
+                        <p className="text-xs text-gray-500">{deal.destinationCode}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-green-600">
-                          ${deal.totalPrice}
-                        </p>
-                        {deal.isMixedAirlines && (
-                          <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mt-1">
-                            Mixed Airlines
-                          </span>
-                        )}
+                        <div className="flex flex-col items-end gap-1.5">
+                          <p className="text-2xl font-bold text-blue-600">
+                            ${deal.totalPrice}
+                          </p>
+                          {deal.isMixedAirlines && (
+                            <span className="inline-flex items-center gap-1 bg-green-600 text-white text-xs font-medium px-2.5 py-1 rounded">
+                              Mixed Airlines
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -827,8 +829,8 @@ export default function Home() {
             </div>
 
             {/* Filter Panel */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Filter & Sort Results</h3>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters & Sorting</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 {/* Sort By */}
@@ -839,7 +841,7 @@ export default function Home() {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as any)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                   >
                     <option value="price-asc">Price: Low to High</option>
                     <option value="price-desc">Price: High to Low</option>
@@ -861,16 +863,16 @@ export default function Home() {
                       onChange={(e) => setPriceMin(Number(e.target.value))}
                       min={0}
                       max={priceMax}
-                      className="w-20 px-2 py-2 border border-gray-300 rounded-md text-sm"
+                      className="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Min"
                     />
-                    <span className="text-gray-500">to</span>
+                    <span className="text-gray-500 text-sm">to</span>
                     <input
                       type="number"
                       value={priceMax}
                       onChange={(e) => setPriceMax(Number(e.target.value))}
                       min={priceMin}
-                      className="w-20 px-2 py-2 border border-gray-300 rounded-md text-sm"
+                      className="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Max"
                     />
                   </div>
@@ -894,7 +896,7 @@ export default function Home() {
                       type="date"
                       value={filterDateStart}
                       onChange={(e) => setFilterDateStart(e.target.value)}
-                      className="w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm"
+                      className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="From"
                     />
                     <input
@@ -902,7 +904,7 @@ export default function Home() {
                       value={filterDateEnd}
                       onChange={(e) => setFilterDateEnd(e.target.value)}
                       min={filterDateStart}
-                      className="w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm"
+                      className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="To"
                     />
                   </div>
@@ -913,7 +915,7 @@ export default function Home() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Destinations
                   </label>
-                  <div className="max-h-24 overflow-y-auto border border-gray-300 rounded-md p-2 space-y-1">
+                  <div className="max-h-24 overflow-y-auto border border-gray-300 rounded-lg p-2 space-y-1 bg-gray-50">
                     {availableDestinations.map(code => {
                       const airport = DESTINATION_AIRPORTS.find(a => a.code === code);
                       return (
@@ -942,7 +944,7 @@ export default function Home() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Airlines
                   </label>
-                  <div className="max-h-24 overflow-y-auto border border-gray-300 rounded-md p-2 space-y-1">
+                  <div className="max-h-24 overflow-y-auto border border-gray-300 rounded-lg p-2 space-y-1 bg-gray-50">
                     {availableAirlines.length > 0 ? (
                       availableAirlines.map(airline => (
                         <label key={airline} className="flex items-center space-x-2 cursor-pointer text-sm">
@@ -974,7 +976,7 @@ export default function Home() {
                         );
                         setFilterAirlines(budgetCarriers);
                       }}
-                      className="mt-2 w-full px-2 py-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 rounded transition-colors"
+                      className="mt-2 w-full px-2 py-1 text-xs bg-green-50 hover:bg-green-100 text-green-700 rounded-lg transition-colors border border-green-200"
                     >
                       Spirit/Frontier Only
                     </button>
@@ -994,9 +996,9 @@ export default function Home() {
                     setFilterDateEnd('');
                     setFilterAirlines([]);
                   }}
-                  className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md transition-colors"
+                  className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors border border-gray-300"
                 >
-                  Reset All Filters
+                  Reset Filters
                 </button>
               </div>
             </div>
@@ -1016,39 +1018,35 @@ export default function Home() {
                 return (
                   <div
                     key={`${deal.destinationCode}-${deal.departureDate}-${index}`}
-                    className="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-6 border border-gray-100 relative overflow-hidden"
+                    className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-5 border border-gray-200"
                   >
-                    {/* Decorative gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-
-                    <div className="relative z-10">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex-1">
-                          <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                            {destinationInfo?.city || deal.destinationCity}
-                          </h3>
-                          <p className="text-sm font-medium text-gray-500 bg-gray-100 rounded-full px-3 py-1 inline-block">
-                            {deal.destinationCode}
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">
+                          {destinationInfo?.city || deal.destinationCity}
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          {deal.destinationCode}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex flex-col items-end gap-1.5">
+                          <p className="text-2xl font-bold text-blue-600">
+                            ${deal.price}
                           </p>
-                        </div>
-                        <div className="text-right">
-                          <div className="flex flex-col items-end gap-1">
-                            <p className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                              ${deal.price}
-                            </p>
-                            {deal.direct && (
-                              <span className="inline-flex items-center gap-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
-                                <span>✓</span> Nonstop
-                              </span>
-                            )}
-                            {!deal.direct && deal.stops !== undefined && (
-                              <span className="inline-block bg-amber-100 text-amber-800 text-xs font-medium px-3 py-1 rounded-full">
-                                {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
-                              </span>
-                            )}
-                          </div>
+                          {deal.direct && (
+                            <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded">
+                              Nonstop
+                            </span>
+                          )}
+                          {!deal.direct && deal.stops !== undefined && (
+                            <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded">
+                              {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
+                            </span>
+                          )}
                         </div>
                       </div>
+                    </div>
 
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
@@ -1107,12 +1105,11 @@ export default function Home() {
                           href={deal.deepLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 block w-full text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                          className="mt-4 block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
                         >
-                          View on Google Flights →
+                          View Details →
                         </a>
                       )}
-                    </div>
                   </div>
                 );
               })}
@@ -1122,20 +1119,21 @@ export default function Home() {
         )}
 
         {!loading && deals.length === 0 && searchProgress && (
-          <div className="text-center py-12 bg-white rounded-lg shadow-md">
-            <p className="text-gray-600 text-lg">
-              No deals found matching your criteria.
+          <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="text-gray-400 text-5xl mb-4">✈️</div>
+            <p className="text-gray-900 text-lg font-semibold mb-2">
+              No deals found
             </p>
-            <p className="text-gray-500 mt-2">
-              Try different dates or disable the nonstop-only filter.
+            <p className="text-gray-500 text-sm">
+              Try different dates or adjust your filters
             </p>
           </div>
         )}
 
         {/* Instructions */}
         {!loading && deals.length === 0 && !searchProgress && (
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               How It Works
             </h2>
             <div className="space-y-4 text-gray-600">
@@ -1174,7 +1172,7 @@ export default function Home() {
                 {DESTINATION_AIRPORTS.slice(0, 16).map((airport) => (
                   <div
                     key={airport.code}
-                    className="p-3 border border-gray-200 rounded-md text-left"
+                    className="p-3 border border-gray-200 rounded-lg text-left bg-gray-50"
                   >
                     <div className="font-semibold text-gray-900">
                       {airport.city}
