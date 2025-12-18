@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { MixMatchFlightDeal } from '../api/search-mix-match/route';
 import { DESTINATION_AIRPORTS } from '@/lib/airports';
 
@@ -8,6 +9,8 @@ interface MixMatchCalendarViewProps {
 }
 
 export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProps) {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
   // Group deals by departure date
   const dealsByDate = deals.reduce((acc, deal) => {
     const date = deal.departureDate;
@@ -79,8 +82,119 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
 
   const allPrices = deals.map(d => d.totalPrice);
 
+  const handleDateClick = (dateStr: string) => {
+    if (dealsByDate[dateStr] && dealsByDate[dateStr].length > 0) {
+      setSelectedDate(dateStr);
+      setShowModal(true);
+    }
+  };
+
+  const selectedDeals = selectedDate ? dealsByDate[selectedDate] || [] : [];
+
   return (
     <div className="space-y-8">
+      {/* Modal for selected date */}
+      {showModal && selectedDate && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Mix & Match Deals for {new Date(selectedDate).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </h3>
+                <p className="text-gray-600 mt-1">{selectedDeals.length} deal{selectedDeals.length > 1 ? 's' : ''} found</p>
+              </div>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-400 hover:text-gray-600 text-3xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {selectedDeals.map((deal, index) => {
+                const destinationInfo = DESTINATION_AIRPORTS.find(a => a.code === deal.destinationCode);
+                const tripLength = Math.ceil(
+                  (new Date(deal.returnDate).getTime() - new Date(deal.departureDate).getTime()) / (1000 * 60 * 60 * 24)
+                );
+
+                return (
+                  <div key={index} className={`bg-gradient-to-br from-white to-gray-50 rounded-lg border p-6 hover:shadow-lg transition-shadow ${
+                    deal.isMixedAirlines ? 'border-green-300 ring-2 ring-green-200' : 'border-gray-200'
+                  }`}>
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">{destinationInfo?.city || deal.destinationCity}</h4>
+                        <p className="text-sm text-gray-500">{deal.destinationCode}</p>
+                        {deal.isMixedAirlines && (
+                          <span className="inline-block bg-green-600 text-white text-xs px-2 py-1 rounded-full mt-1">
+                            Mixed Airlines - Best Price!
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <p className="text-3xl font-bold text-blue-600">${deal.totalPrice}</p>
+                        <p className="text-xs text-gray-500 mt-1">Total</p>
+                      </div>
+                    </div>
+
+                    {/* Outbound Flight */}
+                    <div className="mb-3 pb-3 border-b border-gray-200">
+                      <div className="text-xs font-semibold text-gray-500 mb-1">OUTBOUND</div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-900">{deal.outboundCarrier}</span>
+                        <span className="text-sm font-bold text-blue-600">${deal.outboundPrice}</span>
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {new Date(deal.departureDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {deal.outboundDirect && (
+                          <span className="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
+                            Nonstop
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Return Flight */}
+                    <div className="mb-3">
+                      <div className="text-xs font-semibold text-gray-500 mb-1">RETURN</div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-900">{deal.returnCarrier}</span>
+                        <span className="text-sm font-bold text-blue-600">${deal.returnPrice}</span>
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {new Date(deal.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {deal.returnDirect && (
+                          <span className="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">
+                            Nonstop
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-gray-500 pt-3 border-t border-gray-200">
+                      Trip Length: {tripLength} days
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {months.map((monthDate) => {
         const { daysInMonth, startDayOfWeek, year, month } = getDaysInMonth(monthDate);
         const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
@@ -114,11 +228,12 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                 return (
                   <div
                     key={day}
+                    onClick={() => cheapestDeal && handleDateClick(dateStr)}
                     className={`aspect-square border rounded-lg p-2 ${
                       isToday ? 'ring-2 ring-blue-500' : ''
                     } ${
                       cheapestDeal
-                        ? `${getPriceColor(cheapestDeal.totalPrice, allPrices)} cursor-pointer hover:shadow-md transition-shadow`
+                        ? `${getPriceColor(cheapestDeal.totalPrice, allPrices)} cursor-pointer hover:shadow-lg hover:scale-105 transition-all`
                         : 'bg-gray-50 border-gray-200'
                     }`}
                   >
