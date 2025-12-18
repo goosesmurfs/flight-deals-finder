@@ -4,15 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "DATABASE_URL=\"file:./dev.db\" prisma generate && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "DATABASE_URL=\"file:./dev.db\" prisma generate || echo 'Prisma generate failed, will retry during build'"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/client": "^7.1.0",
     "next": "16.0.10",
-    "prisma": "^7.1.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "recharts": "^3.6.0"
