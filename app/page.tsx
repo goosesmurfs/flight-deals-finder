@@ -6,6 +6,7 @@ import { DESTINATION_AIRPORTS, ORIGIN_AIRPORT } from '@/lib/airports';
 import { AllDealsFlightDeal } from './api/search-all-dates-destinations/route';
 import { MixMatchFlightDeal } from './api/search-mix-match/route';
 import CalendarView from './components/CalendarView';
+import MixMatchCalendarView from './components/MixMatchCalendarView';
 
 export default function Home() {
   const [searchMode, setSearchMode] = useState<'specific' | 'flexible'>('specific');
@@ -27,8 +28,9 @@ export default function Home() {
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [destinationsSearched, setDestinationsSearched] = useState(0);
 
-  // View mode state
+  // View mode states (separate for regular and mix-match)
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
+  const [mixMatchViewMode, setMixMatchViewMode] = useState<'list' | 'calendar'>('list');
 
   // Filter states
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'date-asc' | 'date-desc' | 'destination'>('price-asc');
@@ -560,7 +562,38 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* View Mode Toggle */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+                <button
+                  onClick={() => setMixMatchViewMode('list')}
+                  className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
+                    mixMatchViewMode === 'list'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  📋 List View
+                </button>
+                <button
+                  onClick={() => setMixMatchViewMode('calendar')}
+                  className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
+                    mixMatchViewMode === 'calendar'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  📅 Calendar View
+                </button>
+              </div>
+            </div>
+
+            {/* Calendar View */}
+            {mixMatchViewMode === 'calendar' && <MixMatchCalendarView deals={mixMatchDeals} />}
+
+            {/* List View */}
+            {mixMatchViewMode === 'list' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {mixMatchDeals.map((deal, index) => {
                 const destinationInfo = DESTINATION_AIRPORTS.find(a => a.code === deal.destinationCode);
                 const tripLength = Math.ceil(
@@ -750,7 +783,8 @@ export default function Home() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            )}
           </div>
         )}
 
