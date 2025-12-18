@@ -100,12 +100,12 @@ export default function CalendarView({ deals }: CalendarViewProps) {
           onClick={() => setShowModal(false)}
         >
           <div
-            className="bg-slate-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-slate-700"
+            className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-slate-200"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 bg-slate-800 border-b border-slate-700 p-6 flex justify-between items-center">
+            <div className="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-bold text-slate-900">
                   Deals for {new Date(selectedDate).toLocaleDateString('en-US', {
                     weekday: 'long',
                     month: 'long',
@@ -113,11 +113,11 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                     year: 'numeric'
                   })}
                 </h3>
-                <p className="text-slate-100 mt-1">{selectedDeals.length} deal{selectedDeals.length > 1 ? 's' : ''} found</p>
+                <p className="text-slate-600 mt-1">{selectedDeals.length} deal{selectedDeals.length > 1 ? 's' : ''} found</p>
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-slate-100 text-3xl leading-none"
+                className="text-gray-400 hover:text-slate-600 text-3xl leading-none"
               >
                 ×
               </button>
@@ -131,11 +131,11 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                 );
 
                 return (
-                  <div key={index} className="bg-slate-800 rounded-lg border border-slate-700 p-5 hover:shadow-md transition-shadow duration-200">
+                  <div key={index} className="bg-white rounded-lg border border-slate-200 p-5 hover:shadow-md transition-shadow duration-200">
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h4 className="text-xl font-bold text-white">{destinationInfo?.city || deal.destinationCity}</h4>
-                        <p className="text-sm text-slate-100">{deal.destinationCode}</p>
+                        <h4 className="text-xl font-bold text-slate-900">{destinationInfo?.city || deal.destinationCity}</h4>
+                        <p className="text-sm text-slate-600">{deal.destinationCode}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-3xl font-bold text-indigo-400">${deal.price}</p>
@@ -149,29 +149,29 @@ export default function CalendarView({ deals }: CalendarViewProps) {
 
                     <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                       <div>
-                        <p className="text-slate-100">Departure</p>
+                        <p className="text-slate-600">Departure</p>
                         <p className="font-medium">{new Date(deal.departureDate).toLocaleDateString()}</p>
                         {deal.outboundDepartureTime && (
-                          <p className="text-xs text-slate-100">{deal.outboundDepartureTime}</p>
+                          <p className="text-xs text-slate-600">{deal.outboundDepartureTime}</p>
                         )}
                       </div>
                       <div>
-                        <p className="text-slate-100">Return</p>
+                        <p className="text-slate-600">Return</p>
                         <p className="font-medium">{new Date(deal.returnDate).toLocaleDateString()}</p>
                         {deal.returnDepartureTime && (
-                          <p className="text-xs text-slate-100">{deal.returnDepartureTime}</p>
+                          <p className="text-xs text-slate-600">{deal.returnDepartureTime}</p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-700">
-                      <span className="text-sm text-slate-100">Trip Length: {tripLength} days</span>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-200">
+                      <span className="text-sm text-slate-600">Trip Length: {tripLength} days</span>
                       {deal.deepLink && (
                         <a
                           href={deal.deepLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                          className="bg-indigo-700 hover:bg-indigo-800 text-slate-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                         >
                           View on Google Flights →
                         </a>
@@ -190,14 +190,14 @@ export default function CalendarView({ deals }: CalendarViewProps) {
         const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
         return (
-          <div key={`${year}-${month}`} className="bg-slate-800 rounded-lg shadow-sm border border-slate-700 p-6">
-            <h3 className="text-2xl font-bold text-white mb-4">{monthName}</h3>
+          <div key={`${year}-${month}`} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">{monthName}</h3>
 
             {/* Calendar Grid */}
             <div className="grid grid-cols-7 gap-2">
               {/* Day headers */}
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center font-semibold text-slate-100 text-sm py-2">
+                <div key={day} className="text-center font-semibold text-slate-600 text-sm py-2">
                   {day}
                 </div>
               ))}
@@ -224,10 +224,10 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                     } ${
                       cheapestDeal
                         ? `${getPriceColor(cheapestDeal.price, allPrices)} cursor-pointer hover:shadow-lg hover:scale-105 transition-all`
-                        : 'bg-gray-50 border-slate-700'
+                        : 'bg-gray-50 border-slate-200'
                     }`}
                   >
-                    <div className="text-sm font-semibold text-slate-100 mb-1">{day}</div>
+                    <div className="text-sm font-semibold text-slate-600 mb-1">{day}</div>
                     {cheapestDeal && (
                       <div className="text-xs space-y-1">
                         <div className="font-bold">${cheapestDeal.price}</div>
@@ -253,19 +253,19 @@ export default function CalendarView({ deals }: CalendarViewProps) {
             <div className="mt-4 flex flex-wrap gap-4 text-xs">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-emerald-100 border border-emerald-300 rounded"></div>
-                <span className="text-slate-100">Best Deals</span>
+                <span className="text-slate-600">Best Deals</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-indigo-100 border border-indigo-300 rounded"></div>
-                <span className="text-slate-100">Good Deals</span>
+                <span className="text-slate-600">Good Deals</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border border-yellow-300 rounded"></div>
-                <span className="text-slate-100">Fair Deals</span>
+                <span className="text-slate-600">Fair Deals</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-red-100 border border-red-300 rounded"></div>
-                <span className="text-slate-100">Higher Prices</span>
+                <span className="text-slate-600">Higher Prices</span>
               </div>
             </div>
           </div>
