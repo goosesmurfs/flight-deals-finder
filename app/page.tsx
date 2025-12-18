@@ -264,9 +264,12 @@ export default function Home() {
                 <span className="text-2xl">✈️</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">
-                  Flight Deals Finder
-                </h1>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-white">
+                    Flight Deals Finder
+                  </h1>
+                  <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">DARK MODE</span>
+                </div>
                 <p className="text-sm text-slate-100">From {ORIGIN_AIRPORT.city}</p>
               </div>
             </div>
