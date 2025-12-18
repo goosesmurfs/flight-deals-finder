@@ -254,80 +254,82 @@ export default function Home() {
   const maxDealPrice = dealPrices.length > 0 ? Math.max(...dealPrices) : 2000;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-block mb-3">
-            <span className="text-5xl">✈️</span>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-2xl">✈️</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Flight Deals Finder
+                </h1>
+                <p className="text-sm text-gray-500">From {ORIGIN_AIRPORT.city}</p>
+              </div>
+            </div>
           </div>
-          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
-            Flight Deals from {ORIGIN_AIRPORT.city}
-          </h1>
-          <p className="text-lg text-gray-700 font-medium">
-            Find the cheapest roundtrip flights to your dream destinations
-          </p>
-          <p className="text-sm text-gray-600 mt-2">
-            Search {DESTINATION_AIRPORTS.length} destinations • Real-time pricing • Instant results
-          </p>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Search Panel */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 mb-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
           {/* Trip Style Selection */}
           <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-800 mb-3">
-              🗓️ Select Trip Style
-              <span className="text-xs text-gray-500 ml-2 font-normal">(We'll find the best dates for you)</span>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Trip Duration
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <button
                 type="button"
                 onClick={() => selectTripStyle(3)}
-                className={`px-3 py-2 text-sm rounded-md transition-colors ${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 3
-                    ? 'bg-orange-500 text-white'
-                    : 'bg-orange-100 hover:bg-orange-200 text-orange-700'
+                    ? 'border-blue-600 bg-blue-50 shadow-sm'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                Weekend
-                <span className="block text-xs">3 days</span>
+                <div className="text-sm font-semibold text-gray-900">Weekend</div>
+                <div className="text-xs text-gray-500 mt-1">3 days</div>
               </button>
               <button
                 type="button"
                 onClick={() => selectTripStyle(7)}
-                className={`px-3 py-2 text-sm rounded-md transition-colors ${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 7
-                    ? 'bg-teal-500 text-white'
-                    : 'bg-teal-100 hover:bg-teal-200 text-teal-700'
+                    ? 'border-blue-600 bg-blue-50 shadow-sm'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                Week
-                <span className="block text-xs">7 days</span>
+                <div className="text-sm font-semibold text-gray-900">Week</div>
+                <div className="text-xs text-gray-500 mt-1">7 days</div>
               </button>
               <button
                 type="button"
                 onClick={() => selectTripStyle(10)}
-                className={`px-3 py-2 text-sm rounded-md transition-colors ${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 10
-                    ? 'bg-indigo-500 text-white'
-                    : 'bg-indigo-100 hover:bg-indigo-200 text-indigo-700'
+                    ? 'border-blue-600 bg-blue-50 shadow-sm'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                Extended
-                <span className="block text-xs">10 days</span>
+                <div className="text-sm font-semibold text-gray-900">Extended</div>
+                <div className="text-xs text-gray-500 mt-1">10 days</div>
               </button>
               <button
                 type="button"
                 onClick={() => selectTripStyle(14)}
-                className={`px-3 py-2 text-sm rounded-md transition-colors ${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 14
-                    ? 'bg-purple-500 text-white'
-                    : 'bg-purple-100 hover:bg-purple-200 text-purple-700'
+                    ? 'border-blue-600 bg-blue-50 shadow-sm'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                2 Weeks
-                <span className="block text-xs">14 days</span>
+                <div className="text-sm font-semibold text-gray-900">2 Weeks</div>
+                <div className="text-xs text-gray-500 mt-1">14 days</div>
               </button>
             </div>
           </div>
@@ -343,7 +345,7 @@ export default function Home() {
                 onChange={(e) => setDepartureDate(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
                 max={new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
               <div className="text-xs text-gray-500 mt-1">
                 Any date in the next 90 days
@@ -359,7 +361,7 @@ export default function Home() {
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 min={departureDate || new Date().toISOString().split('T')[0]}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
               <div className="text-xs text-gray-500 mt-1">
                 When do you want to return?
@@ -496,7 +498,7 @@ export default function Home() {
           <button
             onClick={handleSearch}
             disabled={loading || selectedDestinations.length === 0}
-            className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 disabled:from-gray-300 disabled:via-gray-300 disabled:to-gray-400 text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-none text-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md disabled:shadow-none text-base"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
