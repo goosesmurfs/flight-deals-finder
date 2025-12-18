@@ -234,6 +234,11 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                         <div className="truncate text-xs opacity-75">
                           {DESTINATION_AIRPORTS.find(a => a.code === cheapestDeal.destinationCode)?.city}
                         </div>
+                        {cheapestDeal.outboundDepartureTime && (
+                          <div className="text-xs opacity-75 font-mono">
+                            {cheapestDeal.outboundDepartureTime}
+                          </div>
+                        )}
                         {dealsCount > 1 && (
                           <div className="text-xs opacity-75">+{dealsCount - 1} more</div>
                         )}

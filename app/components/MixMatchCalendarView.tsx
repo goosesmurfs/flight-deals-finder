@@ -244,6 +244,11 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                         <div className="truncate text-xs opacity-75">
                           {DESTINATION_AIRPORTS.find(a => a.code === cheapestDeal.destinationCode)?.city}
                         </div>
+                        {cheapestDeal.outboundDepartureTime && (
+                          <div className="text-xs opacity-75 font-mono">
+                            {cheapestDeal.outboundDepartureTime}
+                          </div>
+                        )}
                         {cheapestDeal.isMixedAirlines && (
                           <div className="inline-block bg-green-600 text-white text-xs px-1 rounded">
                             Mixed
