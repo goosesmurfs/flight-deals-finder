@@ -133,50 +133,89 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                 return (
                   <div key={index} className="bg-white rounded-lg border border-slate-200 p-5 hover:shadow-md transition-shadow duration-200">
                     <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h4 className="text-xl font-bold text-slate-900">{destinationInfo?.city || deal.destinationCity}</h4>
-                        <p className="text-sm text-slate-600">{deal.destinationCode}</p>
+                      <div className="flex-1">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{destinationInfo?.city || deal.destinationCity}</h4>
+                        <p className="text-xs text-slate-500">{deal.destinationCode}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-3xl font-bold text-indigo-400">${deal.price}</p>
-                        {deal.direct && (
-                          <span className="inline-block bg-emerald-100 text-emerald-400 border border-emerald-200 text-xs px-2 py-1 rounded-full mt-1">
-                            Nonstop
+                        <div className="flex flex-col items-end gap-1.5">
+                          <p className="text-2xl font-bold text-indigo-600">${deal.price}</p>
+                          {deal.direct && (
+                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-medium px-2.5 py-1 rounded border border-emerald-200">
+                              Nonstop
+                            </span>
+                          )}
+                          {!deal.direct && deal.stops !== undefined && (
+                            <span className="inline-block bg-gray-50 text-slate-700 text-xs font-medium px-2.5 py-1 rounded">
+                              {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 text-sm text-slate-700">
+                      <div className="flex justify-between">
+                        <span>Departure:</span>
+                        <span className="font-medium">
+                          {new Date(deal.departureDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                      {deal.outboundDepartureTime && (
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-500">Outbound:</span>
+                          <span className="font-mono">
+                            {deal.outboundDepartureTime}
+                            {deal.outboundArrivalTime && ` → ${deal.outboundArrivalTime}`}
                           </span>
-                        )}
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span>Return:</span>
+                        <span className="font-medium">
+                          {new Date(deal.returnDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                        </span>
                       </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                      <div>
-                        <p className="text-slate-600">Departure</p>
-                        <p className="font-medium">{new Date(deal.departureDate).toLocaleDateString()}</p>
-                        {deal.outboundDepartureTime && (
-                          <p className="text-xs text-slate-600">{deal.outboundDepartureTime}</p>
-                        )}
+                      {deal.returnDepartureTime && (
+                        <div className="flex justify-between text-xs">
+                          <span className="text-slate-500">Return Flight:</span>
+                          <span className="font-mono">
+                            {deal.returnDepartureTime}
+                            {deal.returnArrivalTime && ` → ${deal.returnArrivalTime}`}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span>Trip Length:</span>
+                        <span className="font-medium">{tripLength} days</span>
                       </div>
-                      <div>
-                        <p className="text-slate-600">Return</p>
-                        <p className="font-medium">{new Date(deal.returnDate).toLocaleDateString()}</p>
-                        {deal.returnDepartureTime && (
-                          <p className="text-xs text-slate-600">{deal.returnDepartureTime}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-200">
-                      <span className="text-sm text-slate-600">Trip Length: {tripLength} days</span>
-                      {deal.deepLink && (
-                        <a
-                          href={deal.deepLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-indigo-700 hover:bg-indigo-800 text-slate-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                        >
-                          View on Google Flights →
-                        </a>
+                      {deal.carriers && deal.carriers.length > 0 && (
+                        <div className="pt-2 border-t">
+                          <span className="text-xs text-slate-500">
+                            {deal.carriers.join(', ')}
+                          </span>
+                        </div>
                       )}
                     </div>
+
+                    {deal.deepLink && (
+                      <a
+                        href={deal.deepLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 block w-full text-center bg-indigo-700 hover:bg-indigo-800 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
+                      >
+                        View Details →
+                      </a>
+                    )}
                   </div>
                 );
               })}

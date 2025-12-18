@@ -187,6 +187,103 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                     <div className="text-xs text-slate-600 pt-3 border-t border-slate-200">
                       Trip Length: {tripLength} days
                     </div>
+
+                    {/* Multi-site booking links */}
+                    <div className="mt-4 space-y-3">
+                      {/* Outbound Flight Booking Options */}
+                      <div>
+                        <div className="text-xs font-semibold text-slate-700 mb-2">BOOK OUTBOUND:</div>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {deal.bookingLinksOutbound?.skyscanner && (
+                            <a
+                              href={deal.bookingLinksOutbound.skyscanner}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#0770E3] hover:bg-[#0558B8] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Skyscanner
+                            </a>
+                          )}
+                          {deal.bookingLinksOutbound?.googleFlights && (
+                            <a
+                              href={deal.bookingLinksOutbound.googleFlights}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Google
+                            </a>
+                          )}
+                          {deal.bookingLinksOutbound?.kayak && (
+                            <a
+                              href={deal.bookingLinksOutbound.kayak}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#FF690F] hover:bg-[#E65F0D] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Kayak
+                            </a>
+                          )}
+                          {deal.bookingLinksOutbound?.expedia && (
+                            <a
+                              href={deal.bookingLinksOutbound.expedia}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#FFCB00] hover:bg-[#E6B800] text-gray-900 text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Expedia
+                            </a>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Return Flight Booking Options */}
+                      <div>
+                        <div className="text-xs font-semibold text-slate-700 mb-2">BOOK RETURN:</div>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {deal.bookingLinksReturn?.skyscanner && (
+                            <a
+                              href={deal.bookingLinksReturn.skyscanner}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#0770E3] hover:bg-[#0558B8] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Skyscanner
+                            </a>
+                          )}
+                          {deal.bookingLinksReturn?.googleFlights && (
+                            <a
+                              href={deal.bookingLinksReturn.googleFlights}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Google
+                            </a>
+                          )}
+                          {deal.bookingLinksReturn?.kayak && (
+                            <a
+                              href={deal.bookingLinksReturn.kayak}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#FF690F] hover:bg-[#E65F0D] text-white text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Kayak
+                            </a>
+                          )}
+                          {deal.bookingLinksReturn?.expedia && (
+                            <a
+                              href={deal.bookingLinksReturn.expedia}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-center bg-[#FFCB00] hover:bg-[#E6B800] text-gray-900 text-xs font-medium py-1.5 px-2 rounded transition-colors"
+                            >
+                              Expedia
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
