@@ -254,13 +254,13 @@ export default function Home() {
   const maxDealPrice = dealPrices.length > 0 ? Math.max(...dealPrices) : 2000;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-100">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-lg flex items-center justify-center shadow-md">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-700 to-indigo-900 rounded-lg flex items-center justify-center shadow-lg">
                 <span className="text-2xl">✈️</span>
               </div>
               <div>
@@ -379,14 +379,14 @@ export default function Home() {
               <button
                 type="button"
                 onClick={selectPopular}
-                className="px-3 py-1.5 text-sm bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors border border-indigo-200"
+                className="px-3 py-1.5 text-sm bg-indigo-50 hover:bg-indigo-100 text-indigo-800 rounded-md transition-colors border border-indigo-200"
               >
                 Popular 5
               </button>
               <button
                 type="button"
                 onClick={selectBeach}
-                className="px-3 py-1.5 text-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-md transition-colors border border-emerald-200"
+                className="px-3 py-1.5 text-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-md transition-colors border border-emerald-200"
               >
                 Beach Cities
               </button>
@@ -425,7 +425,7 @@ export default function Home() {
                     checked={selectedDestinations.includes(airport.code)}
                     onChange={() => toggleDestination(airport.code)}
                     disabled={selectedDestinations.length >= 5 && !selectedDestinations.includes(airport.code)}
-                    className="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500"
+                    className="w-4 h-4 text-indigo-700 border-slate-300 rounded focus:ring-indigo-500"
                   />
                   <span className="text-sm">
                     <span className="font-medium">{airport.city}</span>
@@ -452,7 +452,7 @@ export default function Home() {
                   name="flightType"
                   checked={nonstopOnly === true}
                   onChange={() => setNonstopOnly(true)}
-                  className="w-4 h-4 text-indigo-600 border-slate-300 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-700 border-slate-300 focus:ring-indigo-500"
                 />
                 <div>
                   <span className="text-sm font-medium text-slate-900">Nonstop only</span>
@@ -465,7 +465,7 @@ export default function Home() {
                   name="flightType"
                   checked={nonstopOnly === false}
                   onChange={() => setNonstopOnly(false)}
-                  className="w-4 h-4 text-indigo-600 border-slate-300 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-700 border-slate-300 focus:ring-indigo-500"
                 />
                 <div>
                   <span className="text-sm font-medium text-slate-900">Include connecting flights</span>
@@ -486,7 +486,7 @@ export default function Home() {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-bold text-slate-900">🔀 Mix & Match Airlines</span>
-                  <span className="inline-block bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-sm">CHEAPEST</span>
+                  <span className="inline-block bg-emerald-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-sm">CHEAPEST</span>
                 </div>
                 <span className="text-xs text-slate-600 block mt-1">
                   Search one-way flights separately and combine different airlines for outbound/return to find absolute lowest prices
@@ -498,7 +498,7 @@ export default function Home() {
           <button
             onClick={handleSearch}
             disabled={loading || selectedDestinations.length === 0}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md disabled:shadow-none text-base"
+            className="w-full bg-indigo-700 hover:bg-indigo-800 disabled:bg-gray-300 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md disabled:shadow-none text-base"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -539,7 +539,7 @@ export default function Home() {
             {/* Progress Bar */}
             <div className="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
               <div
-                className="bg-indigo-600 h-4 rounded-full transition-all duration-300 ease-out flex items-center justify-center text-xs text-white font-medium"
+                className="bg-indigo-700 h-4 rounded-full transition-all duration-300 ease-out flex items-center justify-center text-xs text-white font-medium"
                 style={{ width: `${progressPercentage}%` }}
               >
                 {progressPercentage > 10 && `${progressPercentage}%`}
@@ -571,7 +571,7 @@ export default function Home() {
                   onClick={() => setMixMatchViewMode('list')}
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'list'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-indigo-700 text-white'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
@@ -581,7 +581,7 @@ export default function Home() {
                   onClick={() => setMixMatchViewMode('calendar')}
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'calendar'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-indigo-700 text-white'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
@@ -618,11 +618,11 @@ export default function Home() {
                       </div>
                       <div className="text-right">
                         <div className="flex flex-col items-end gap-1.5">
-                          <p className="text-2xl font-bold text-indigo-600">
+                          <p className="text-2xl font-bold text-indigo-700">
                             ${deal.totalPrice}
                           </p>
                           {deal.isMixedAirlines && (
-                            <span className="inline-flex items-center gap-1 bg-emerald-500 text-white text-xs font-medium px-2.5 py-1 rounded shadow-sm">
+                            <span className="inline-flex items-center gap-1 bg-emerald-600 text-white text-xs font-medium px-2.5 py-1 rounded shadow-sm">
                               Mixed Airlines
                             </span>
                           )}
@@ -635,7 +635,7 @@ export default function Home() {
                       <div className="text-xs font-semibold text-slate-500 mb-1">OUTBOUND</div>
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-sm font-medium text-slate-900">{deal.outboundCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-600">${deal.outboundPrice}</span>
+                        <span className="text-sm font-bold text-indigo-700">${deal.outboundPrice}</span>
                       </div>
                       <div className="text-xs text-slate-600">
                         {new Date(deal.departureDate).toLocaleDateString('en-US', {
@@ -651,7 +651,7 @@ export default function Home() {
                         </div>
                       )}
                       {deal.outboundDirect && (
-                        <span className="inline-block bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
+                        <span className="inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
                           Nonstop
                         </span>
                       )}
@@ -662,7 +662,7 @@ export default function Home() {
                       <div className="text-xs font-semibold text-slate-500 mb-1">RETURN</div>
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-sm font-medium text-slate-900">{deal.returnCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-600">${deal.returnPrice}</span>
+                        <span className="text-sm font-bold text-indigo-700">${deal.returnPrice}</span>
                       </div>
                       <div className="text-xs text-slate-600">
                         {new Date(deal.returnDate).toLocaleDateString('en-US', {
@@ -678,7 +678,7 @@ export default function Home() {
                         </div>
                       )}
                       {deal.returnDirect && (
-                        <span className="inline-block bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
+                        <span className="inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full mt-1">
                           Nonstop
                         </span>
                       )}
@@ -809,7 +809,7 @@ export default function Home() {
                   onClick={() => setViewMode('list')}
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'list'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-indigo-700 text-white'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
@@ -819,7 +819,7 @@ export default function Home() {
                   onClick={() => setViewMode('calendar')}
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'calendar'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-indigo-700 text-white'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
@@ -930,7 +930,7 @@ export default function Home() {
                                 setFilterDestinations(filterDestinations.filter(c => c !== code));
                               }
                             }}
-                            className="w-4 h-4 text-indigo-600"
+                            className="w-4 h-4 text-indigo-700"
                           />
                           <span>{airport?.city || code} ({code})</span>
                         </label>
@@ -958,7 +958,7 @@ export default function Home() {
                                 setFilterAirlines(filterAirlines.filter(a => a !== airline));
                               }
                             }}
-                            className="w-4 h-4 text-indigo-600"
+                            className="w-4 h-4 text-indigo-700"
                           />
                           <span>{airline}</span>
                         </label>
@@ -976,7 +976,7 @@ export default function Home() {
                         );
                         setFilterAirlines(budgetCarriers);
                       }}
-                      className="mt-2 w-full px-2 py-1 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-lg transition-colors border border-emerald-200"
+                      className="mt-2 w-full px-2 py-1 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-lg transition-colors border border-emerald-200"
                     >
                       Spirit/Frontier Only
                     </button>
@@ -1031,11 +1031,11 @@ export default function Home() {
                       </div>
                       <div className="text-right">
                         <div className="flex flex-col items-end gap-1.5">
-                          <p className="text-2xl font-bold text-indigo-600">
+                          <p className="text-2xl font-bold text-indigo-700">
                             ${deal.price}
                           </p>
                           {deal.direct && (
-                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-medium px-2.5 py-1 rounded border border-emerald-200">
+                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 text-xs font-medium px-2.5 py-1 rounded border border-emerald-200">
                               Nonstop
                             </span>
                           )}
@@ -1105,7 +1105,7 @@ export default function Home() {
                           href={deal.deepLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
+                          className="mt-4 block w-full text-center bg-indigo-700 hover:bg-indigo-800 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
                         >
                           View Details →
                         </a>
@@ -1138,7 +1138,7 @@ export default function Home() {
             </h2>
             <div className="space-y-4 text-slate-600">
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
                   1
                 </div>
                 <div>
@@ -1147,7 +1147,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
                   2
                 </div>
                 <div>
@@ -1156,7 +1156,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold">
                   3
                 </div>
                 <div>

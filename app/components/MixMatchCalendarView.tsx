@@ -70,11 +70,11 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
     const max = Math.max(...allPrices);
     const range = max - min;
 
-    if (range === 0) return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+    if (range === 0) return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
 
     const percentage = ((price - min) / range) * 100;
 
-    if (percentage <= 25) return 'bg-emerald-50 text-emerald-700 border border-emerald-300';
+    if (percentage <= 25) return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
     if (percentage <= 50) return 'bg-indigo-100 text-indigo-800 border-indigo-300';
     if (percentage <= 75) return 'bg-yellow-100 text-yellow-800 border-yellow-300';
     return 'bg-red-100 text-red-800 border-red-300';
@@ -139,13 +139,13 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                         <h4 className="text-xl font-bold text-slate-900">{destinationInfo?.city || deal.destinationCity}</h4>
                         <p className="text-sm text-slate-500">{deal.destinationCode}</p>
                         {deal.isMixedAirlines && (
-                          <span className="inline-block bg-emerald-500 text-white text-xs px-2 py-1 rounded-full mt-1">
+                          <span className="inline-block bg-emerald-600 text-white text-xs px-2 py-1 rounded-full mt-1">
                             Mixed Airlines - Best Price!
                           </span>
                         )}
                       </div>
                       <div className="text-right">
-                        <p className="text-3xl font-bold text-indigo-600">${deal.totalPrice}</p>
+                        <p className="text-3xl font-bold text-indigo-700">${deal.totalPrice}</p>
                         <p className="text-xs text-slate-500 mt-1">Total</p>
                       </div>
                     </div>
@@ -155,12 +155,12 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                       <div className="text-xs font-semibold text-slate-500 mb-1">OUTBOUND</div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-medium text-slate-900">{deal.outboundCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-600">${deal.outboundPrice}</span>
+                        <span className="text-sm font-bold text-indigo-700">${deal.outboundPrice}</span>
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
                         {new Date(deal.departureDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         {deal.outboundDirect && (
-                          <span className="ml-2 inline-block bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs px-2 py-0.5 rounded-full">
+                          <span className="ml-2 inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full">
                             Nonstop
                           </span>
                         )}
@@ -172,12 +172,12 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                       <div className="text-xs font-semibold text-slate-500 mb-1">RETURN</div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-medium text-slate-900">{deal.returnCarrier}</span>
-                        <span className="text-sm font-bold text-indigo-600">${deal.returnPrice}</span>
+                        <span className="text-sm font-bold text-indigo-700">${deal.returnPrice}</span>
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
                         {new Date(deal.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         {deal.returnDirect && (
-                          <span className="ml-2 inline-block bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs px-2 py-0.5 rounded-full">
+                          <span className="ml-2 inline-block bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs px-2 py-0.5 rounded-full">
                             Nonstop
                           </span>
                         )}
@@ -250,7 +250,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                           </div>
                         )}
                         {cheapestDeal.isMixedAirlines && (
-                          <div className="inline-block bg-emerald-500 text-white text-xs px-1 rounded">
+                          <div className="inline-block bg-emerald-600 text-white text-xs px-1 rounded">
                             Mixed
                           </div>
                         )}
@@ -267,7 +267,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
             {/* Legend */}
             <div className="mt-4 flex flex-wrap gap-4 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-emerald-50 border border-emerald-300 rounded"></div>
+                <div className="w-4 h-4 bg-emerald-100 border border-emerald-300 rounded"></div>
                 <span className="text-slate-600">Best Deals</span>
               </div>
               <div className="flex items-center gap-2">
@@ -283,7 +283,7 @@ export default function MixMatchCalendarView({ deals }: MixMatchCalendarViewProp
                 <span className="text-slate-600">Higher Prices</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="inline-block bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-semibold">
+                <div className="inline-block bg-emerald-600 text-white text-xs px-2 py-0.5 rounded font-semibold">
                   Mixed
                 </div>
                 <span className="text-slate-600">Mixed Airlines</span>

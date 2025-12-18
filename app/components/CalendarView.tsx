@@ -70,11 +70,11 @@ export default function CalendarView({ deals }: CalendarViewProps) {
     const max = Math.max(...allPrices);
     const range = max - min;
 
-    if (range === 0) return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+    if (range === 0) return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
 
     const percentage = ((price - min) / range) * 100;
 
-    if (percentage <= 25) return 'bg-emerald-50 text-emerald-700 border border-emerald-300';
+    if (percentage <= 25) return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
     if (percentage <= 50) return 'bg-indigo-100 text-indigo-800 border-indigo-300';
     if (percentage <= 75) return 'bg-yellow-100 text-yellow-800 border-yellow-300';
     return 'bg-red-100 text-red-800 border-red-300';
@@ -138,9 +138,9 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                         <p className="text-sm text-slate-500">{deal.destinationCode}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-3xl font-bold text-indigo-600">${deal.price}</p>
+                        <p className="text-3xl font-bold text-indigo-700">${deal.price}</p>
                         {deal.direct && (
-                          <span className="inline-block bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs px-2 py-1 rounded-full mt-1">
+                          <span className="inline-block bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs px-2 py-1 rounded-full mt-1">
                             Nonstop
                           </span>
                         )}
@@ -171,7 +171,7 @@ export default function CalendarView({ deals }: CalendarViewProps) {
                           href={deal.deepLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                          className="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                         >
                           View on Google Flights →
                         </a>
@@ -252,7 +252,7 @@ export default function CalendarView({ deals }: CalendarViewProps) {
             {/* Legend */}
             <div className="mt-4 flex flex-wrap gap-4 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-emerald-50 border border-emerald-300 rounded"></div>
+                <div className="w-4 h-4 bg-emerald-100 border border-emerald-300 rounded"></div>
                 <span className="text-slate-600">Best Deals</span>
               </div>
               <div className="flex items-center gap-2">
