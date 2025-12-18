@@ -254,7 +254,7 @@ export default function Home() {
   const maxDealPrice = dealPrices.length > 0 ? Math.max(...dealPrices) : 2000;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -289,7 +289,7 @@ export default function Home() {
                 className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 3
                     ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-100'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="text-sm font-semibold text-slate-900">Weekend</div>
@@ -301,7 +301,7 @@ export default function Home() {
                 className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 7
                     ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-100'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="text-sm font-semibold text-slate-900">Week</div>
@@ -313,7 +313,7 @@ export default function Home() {
                 className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 10
                     ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-100'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="text-sm font-semibold text-slate-900">Extended</div>
@@ -325,7 +325,7 @@ export default function Home() {
                 className={`p-4 rounded-lg border-2 transition-all ${
                   searchMode === 'flexible' && tripDuration === 14
                     ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-100'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="text-sm font-semibold text-slate-900">2 Weeks</div>
@@ -400,20 +400,20 @@ export default function Home() {
               <button
                 type="button"
                 onClick={clearDestinations}
-                className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-md transition-colors border border-slate-300"
+                className="px-3 py-1.5 text-sm bg-gray-50 hover:bg-slate-200 text-slate-900 rounded-md transition-colors border border-slate-300"
               >
                 Clear All
               </button>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 max-h-64 overflow-y-auto p-4 border border-slate-200 rounded-md bg-slate-100">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 max-h-64 overflow-y-auto p-4 border border-slate-200 rounded-md bg-gray-50">
               {DESTINATION_AIRPORTS.map((airport) => (
                 <label
                   key={airport.code}
                   className={`flex items-center space-x-2 p-2 rounded cursor-pointer transition-colors ${
                     selectedDestinations.includes(airport.code)
                       ? 'bg-indigo-100 border border-indigo-300'
-                      : 'hover:bg-slate-100'
+                      : 'hover:bg-gray-50'
                   } ${
                     selectedDestinations.length >= 5 && !selectedDestinations.includes(airport.code)
                       ? 'opacity-50 cursor-not-allowed'
@@ -446,7 +446,7 @@ export default function Home() {
               Flight Preferences
             </label>
             <div className="space-y-2">
-              <label className="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-100 rounded">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 hover:bg-gray-50 rounded">
                 <input
                   type="radio"
                   name="flightType"
@@ -459,7 +459,7 @@ export default function Home() {
                   <span className="text-xs text-slate-500 block">Direct flights, faster search</span>
                 </div>
               </label>
-              <label className="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-100 rounded">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 hover:bg-gray-50 rounded">
                 <input
                   type="radio"
                   name="flightType"
@@ -537,7 +537,7 @@ export default function Home() {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
+            <div className="w-full bg-gray-50 rounded-full h-4 overflow-hidden">
               <div
                 className="bg-indigo-700 h-4 rounded-full transition-all duration-300 ease-out flex items-center justify-center text-xs text-slate-900 font-medium"
                 style={{ width: `${progressPercentage}%` }}
@@ -572,7 +572,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'list'
                       ? 'bg-indigo-700 text-slate-900'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-slate-700 hover:bg-gray-50'
                   }`}
                 >
                   📋 List View
@@ -582,7 +582,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     mixMatchViewMode === 'calendar'
                       ? 'bg-indigo-700 text-slate-900'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-slate-700 hover:bg-gray-50'
                   }`}
                 >
                   📅 Calendar View
@@ -810,7 +810,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'list'
                       ? 'bg-indigo-700 text-slate-900'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-slate-700 hover:bg-gray-50'
                   }`}
                 >
                   📋 List View
@@ -820,7 +820,7 @@ export default function Home() {
                   className={`px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'calendar'
                       ? 'bg-indigo-700 text-slate-900'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-slate-700 hover:bg-gray-50'
                   }`}
                 >
                   📅 Calendar View
@@ -915,7 +915,7 @@ export default function Home() {
                   <label className="block text-sm font-medium text-slate-700 mb-2">
                     Destinations
                   </label>
-                  <div className="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-2 space-y-1 bg-slate-100">
+                  <div className="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-2 space-y-1 bg-gray-50">
                     {availableDestinations.map(code => {
                       const airport = DESTINATION_AIRPORTS.find(a => a.code === code);
                       return (
@@ -944,7 +944,7 @@ export default function Home() {
                   <label className="block text-sm font-medium text-slate-700 mb-2">
                     Airlines
                   </label>
-                  <div className="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-2 space-y-1 bg-slate-100">
+                  <div className="max-h-24 overflow-y-auto border border-slate-300 rounded-lg p-2 space-y-1 bg-gray-50">
                     {availableAirlines.length > 0 ? (
                       availableAirlines.map(airline => (
                         <label key={airline} className="flex items-center space-x-2 cursor-pointer text-sm">
@@ -996,7 +996,7 @@ export default function Home() {
                     setFilterDateEnd('');
                     setFilterAirlines([]);
                   }}
-                  className="px-4 py-2 text-sm bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-lg transition-colors border border-slate-300"
+                  className="px-4 py-2 text-sm bg-gray-50 hover:bg-slate-200 text-slate-900 rounded-lg transition-colors border border-slate-300"
                 >
                   Reset Filters
                 </button>
@@ -1040,7 +1040,7 @@ export default function Home() {
                             </span>
                           )}
                           {!deal.direct && deal.stops !== undefined && (
-                            <span className="inline-block bg-slate-100 text-slate-700 text-xs font-medium px-2.5 py-1 rounded">
+                            <span className="inline-block bg-gray-50 text-slate-700 text-xs font-medium px-2.5 py-1 rounded">
                               {deal.stops} {deal.stops === 1 ? 'stop' : 'stops'}
                             </span>
                           )}
@@ -1172,7 +1172,7 @@ export default function Home() {
                 {DESTINATION_AIRPORTS.slice(0, 16).map((airport) => (
                   <div
                     key={airport.code}
-                    className="p-3 border border-slate-200 rounded-lg text-left bg-slate-100"
+                    className="p-3 border border-slate-200 rounded-lg text-left bg-gray-50"
                   >
                     <div className="font-semibold text-slate-900">
                       {airport.city}
